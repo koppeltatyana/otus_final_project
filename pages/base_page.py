@@ -11,12 +11,10 @@ class BasePage:
         self.base_url = driver.base_url
 
     @allure.step('Открыть страницу {path}')
-    def open(self, path=''):
+    def _open(self, path=''):
         try:
             self.driver.get(self.base_url + path)
-            self.driver.logger.info(f'Opening url: {self.driver.base_url + path}')
         except Exception:
-            self.driver.logger.error(f'Error during opening url {self.driver.base_url + path}')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',
@@ -34,12 +32,10 @@ class BasePage:
         :return: найденный по локатору веб-элемент
         """
         try:
-            self.driver.logger.info(f'Find element with "{locator}" locator')
             return WebDriverWait(self.driver, timeout).until(
                 method=EC.presence_of_element_located(locator),
             )
         except TimeoutException:
-            self.driver.logger.error(f'Can\'t find element with locator "{locator}"')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',
@@ -57,12 +53,10 @@ class BasePage:
         :return: список найденных по локатору веб-элементов
         """
         try:
-            self.driver.logger.info(f'Find elements with "{locator}" locator')
             return WebDriverWait(self.driver, timeout).until(
                 method=EC.presence_of_all_elements_located(locator),
             )
         except TimeoutException:
-            self.driver.logger.error(f'Can\'t find elements with locator "{locator}"')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',
@@ -81,11 +75,8 @@ class BasePage:
         :return: элемент-потомок, найденный внутри элемента-родителя
         """
         try:
-            self.driver.logger.info(f'Find element "{child_locator}" in element "{parent_element}"')
             return parent_element.find_element(*child_locator)
         except TimeoutException:
-            self.driver.logger.error(f'Can\'t find element with locator "{child_locator}" in parent element '
-                                     f'"{parent_element}"')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',
@@ -103,12 +94,10 @@ class BasePage:
         :return: видимый веб-элемент
         """
         try:
-            self.driver.logger.info(f'Check element with "{locator}" locator is visible')
             return WebDriverWait(self.driver, timeout).until(
                 method=EC.visibility_of_element_located(locator),
             )
         except TimeoutException:
-            self.driver.logger.error(f'Can\'t see element with locator "{locator}"')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',
@@ -126,12 +115,10 @@ class BasePage:
         :return:
         """
         try:
-            self.driver.logger.info(f'Check element with "{locator}" locator is clickable')
             return WebDriverWait(self.driver, timeout).until(
                 method=EC.element_to_be_clickable(locator),
             )
         except TimeoutException:
-            self.driver.logger.error(f'Can\'t click the element with locator "{locator}"')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',
@@ -152,9 +139,7 @@ class BasePage:
             _input.click()
             _input.clear()
             _input.send_keys(value)
-            self.driver.logger.info(f'Enter "{value}" value into "{locator}" field')
         except Exception as ex:
-            self.driver.logger.error(f'Can\'t find the element with locator "{locator}"')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',
@@ -173,9 +158,7 @@ class BasePage:
         try:
             select = Select(self.find_element(locator))
             select.select_by_visible_text(value)
-            self.driver.logger.info(f'Click "{value}" value in "{locator}" select button')
         except Exception as ex:
-            self.driver.logger.error(f'Can\'t find the element with locator "{locator}"')
             allure.attach(
                 self.driver.get_screenshot_as_png(),
                 'Screenshot',

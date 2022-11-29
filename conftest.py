@@ -1,8 +1,3 @@
-import logging
-import os
-from datetime import datetime
-
-from _pytest.config import hookimpl
 from _pytest.fixtures import fixture
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -10,13 +5,6 @@ from webdriver_manager.firefox import GeckoDriverManager
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
 
 from utils.helpers import get_settings
-
-
-@hookimpl(tryfirst=True)
-def pytest_sessionstart():
-    log_dir = os.path.dirname(os.path.abspath(__file__)) + '/logs/'
-    if not os.path.isdir(log_dir):
-        os.mkdir(log_dir)
 
 
 pytest_plugins = [
@@ -67,25 +55,10 @@ def browser(request):
         else:
             driver = webdriver.Edge(executable_path=EdgeChromiumDriverManager().install(), options=options)
 
-    # инициализация логгера
-    logger = init_logger('INFO', request)
-    logger.info(f'Browser was started at {datetime.now()}')
-
     def fin():
         driver.close()
-        logger.info(f'Browser was closed at {datetime.now()}')
-
     request.addfinalizer(fin)
 
     driver.set_window_size(setting_config['BROWSER_WINDOW_WIDTH'], setting_config['BROWSER_WINDOW_HEIGHT'])
+    driver.base_url = setting_config['SOURCE']['BASE_URL']
     return driver
-
-
-def init_logger(log_level, request):
-    log_dir = os.path.dirname(os.path.abspath(__file__)) + '/logs/'
-    logger = logging.getLogger(request.node.name)
-    file_handler = logging.FileHandler(log_dir + f'{request.node.name}.log')
-    file_handler.setFormatter(logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'))
-    logger.addHandler(file_handler)
-    logger.setLevel(level=log_level)
-    return logger
