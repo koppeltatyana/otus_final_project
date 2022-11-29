@@ -1,0 +1,82 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome1",
+    "definitions": {
+        "Welcome1": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "response": {
+                    "type": "boolean"
+                },
+                "error": {
+                    "$ref": "#/definitions/Error"
+                },
+                "userInfo": {
+                    "$ref": "#/definitions/UserInfo"
+                }
+            },
+            "required": [
+                "error",
+                "response",
+                "userInfo"
+            ],
+            "title": "Welcome1"
+        },
+        "Error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "boolean"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "msg",
+                "status"
+            ],
+            "title": "Error"
+        },
+        "UserInfo": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "firstName": {
+                    "type": "string"
+                },
+                "lastName": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "balance": {
+                    "type": ["string", "null"]
+                }
+            },
+            "required": [
+                "balance",
+                "email",
+                "firstName",
+                "id",
+                "lastName",
+                "status",
+                "type"
+            ],
+            "title": "UserInfo"
+        }
+    }
+}

@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome5",
+    "definitions": {
+        "Welcome5": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "response": {
+                    "type": "boolean"
+                },
+                "error": {
+                    "$ref": "#/definitions/Error"
+                }
+            },
+            "required": [
+                "error",
+                "response"
+            ],
+            "title": "Welcome5"
+        },
+        "Error": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "status": {
+                    "type": "boolean"
+                },
+                "msg": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "msg",
+                "status"
+            ],
+            "title": "Error"
+        }
+    }
+}

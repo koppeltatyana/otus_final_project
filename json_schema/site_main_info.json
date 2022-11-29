@@ -1,0 +1,1126 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome6",
+    "definitions": {
+        "Welcome6": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "modules": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Module"
+                    }
+                },
+                "slider": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Slider"
+                    }
+                },
+                "payment_gateways": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PaymentGateway"
+                    }
+                },
+                "extras": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Extra"
+                    }
+                },
+                "currencies": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Currency"
+                    }
+                },
+                "languages": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Language"
+                    }
+                },
+                "cms": {
+                    "$ref": "#/definitions/CMS"
+                },
+                "app": {
+                    "$ref": "#/definitions/App"
+                },
+                "social": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Social"
+                    }
+                },
+                "featured_hotels": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FeaturedHotel"
+                    }
+                },
+                "featured_flights": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FeaturedFlight"
+                    }
+                },
+                "featured_tours": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FeaturedTour"
+                    }
+                },
+                "featured_cars": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FeaturedCar"
+                    }
+                },
+                "featured_blog": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/FeaturedBlog"
+                    }
+                }
+            },
+            "required": [
+                "app",
+                "cms",
+                "currencies",
+                "extras",
+                "featured_blog",
+                "featured_cars",
+                "featured_flights",
+                "featured_hotels",
+                "featured_tours",
+                "languages",
+                "modules",
+                "payment_gateways",
+                "slider",
+                "social"
+            ],
+            "title": "Welcome6"
+        },
+        "App": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "appname": {
+                    "type": "string"
+                },
+                "site_url": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "offline": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "offline_msg": {
+                    "type": "string"
+                },
+                "restrict_website": {
+                    "type": "boolean"
+                },
+                "allow_registration": {
+                    "type": "boolean"
+                },
+                "allow_agent_registration": {
+                    "type": "boolean"
+                },
+                "suppliers_registration": {
+                    "type": "boolean"
+                },
+                "gmap_key": {
+                    "type": "string"
+                },
+                "default_language": {
+                    "type": "string"
+                },
+                "multi_currency": {
+                    "type": "boolean"
+                },
+                "multi_language": {
+                    "type": "boolean"
+                },
+                "currency_code": {
+                    "type": "string"
+                },
+                "copyright": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "meta_title": {
+                    "type": "string"
+                },
+                "meta_keywords": {
+                    "type": "string"
+                },
+                "meta_description": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "address",
+                "allow_agent_registration",
+                "allow_registration",
+                "appname",
+                "copyright",
+                "currency_code",
+                "default_language",
+                "email",
+                "gmap_key",
+                "meta_description",
+                "meta_keywords",
+                "meta_title",
+                "multi_currency",
+                "multi_language",
+                "offline",
+                "offline_msg",
+                "phone",
+                "restrict_website",
+                "site_url",
+                "suppliers_registration"
+            ],
+            "title": "App"
+        },
+        "CMS": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "header": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Header"
+                    }
+                },
+                "footer": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Footer"
+                    }
+                }
+            },
+            "required": [
+                "footer",
+                "header"
+            ],
+            "title": "CMS"
+        },
+        "Footer": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "Company": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Company"
+                    }
+                },
+                "Support": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Company"
+                    }
+                },
+                "Services": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Company"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Footer"
+        },
+        "Company": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "href": {
+                    "type": "string"
+                },
+                "target": {
+                    "type": "null"
+                },
+                "title": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "href",
+                "target",
+                "title"
+            ],
+            "title": "Company"
+        },
+        "Header": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "Company": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Company"
+                    }
+                },
+                "Booking Tips": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Company"
+                    }
+                }
+            },
+            "required": [],
+            "title": "Header"
+        },
+        "Currency": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "symbol": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "code": {
+                    "type": "string"
+                },
+                "rate": {
+                    "type": "string"
+                },
+                "decimals": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "symbol_placement": {
+                    "$ref": "#/definitions/SymbolPlacement"
+                },
+                "primary_order": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "default": {
+                    "type": "boolean"
+                },
+                "status": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "code",
+                "decimals",
+                "default",
+                "id",
+                "name",
+                "primary_order",
+                "rate",
+                "status",
+                "symbol",
+                "symbol_placement"
+            ],
+            "title": "Currency"
+        },
+        "Extra": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "status",
+                "title"
+            ],
+            "title": "Extra"
+        },
+        "FeaturedBlog": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "thumbnail": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".jpg"
+                    ]
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "shortDesc": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                }
+            },
+            "required": [
+                "desc",
+                "id",
+                "shortDesc",
+                "slug",
+                "thumbnail",
+                "title"
+            ],
+            "title": "FeaturedBlog"
+        },
+        "FeaturedCar": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "thumbnail": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".jpg"
+                    ]
+                },
+                "stars": {
+                    "type": "string"
+                },
+                "starsCount": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "doors": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "passengers": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "transmission": {
+                    "type": "string"
+                },
+                "airportPickup": {
+                    "type": "string"
+                },
+                "baggage": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "currCode": {
+                    "$ref": "#/definitions/CurrCode"
+                },
+                "carType": {
+                    "type": "string"
+                },
+                "discount": {
+                    "anyOf": [
+                        {
+                            "type": "string",
+                            "format": "integer"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "latitude": {
+                    "type": "string"
+                },
+                "longitude": {
+                    "type": "string"
+                },
+                "avgReviews": {
+                    "$ref": "#/definitions/FeaturedCarAvgReviews"
+                }
+            },
+            "required": [
+                "airportPickup",
+                "avgReviews",
+                "baggage",
+                "carType",
+                "currCode",
+                "desc",
+                "discount",
+                "doors",
+                "id",
+                "latitude",
+                "location",
+                "longitude",
+                "passengers",
+                "price",
+                "slug",
+                "stars",
+                "starsCount",
+                "thumbnail",
+                "title",
+                "transmission"
+            ],
+            "title": "FeaturedCar"
+        },
+        "FeaturedCarAvgReviews": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "clean": {
+                    "type": "integer"
+                },
+                "comfort": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "facilities": {
+                    "type": "integer"
+                },
+                "staff": {
+                    "type": "integer"
+                },
+                "totalReviews": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "overall": {
+                    "type": "number"
+                }
+            },
+            "required": [
+                "clean",
+                "comfort",
+                "facilities",
+                "location",
+                "overall",
+                "staff",
+                "totalReviews"
+            ],
+            "title": "FeaturedCarAvgReviews"
+        },
+        "FeaturedFlight": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "from": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "thumbnail": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".png"
+                    ]
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "currCode": {
+                    "$ref": "#/definitions/CurrCode"
+                }
+            },
+            "required": [
+                "currCode",
+                "desc",
+                "from",
+                "id",
+                "price",
+                "thumbnail",
+                "title",
+                "to"
+            ],
+            "title": "FeaturedFlight"
+        },
+        "FeaturedHotel": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "thumbnail": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".jpg"
+                    ]
+                },
+                "stars": {
+                    "type": "string"
+                },
+                "starsCount": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "amenities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Amenity"
+                    }
+                },
+                "avgReviews": {
+                    "$ref": "#/definitions/FeaturedHotelAvgReviews"
+                },
+                "latitude": {
+                    "type": "string"
+                },
+                "longitude": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "string"
+                },
+                "address": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "currCode": {
+                    "$ref": "#/definitions/CurrCode"
+                }
+            },
+            "required": [
+                "address",
+                "amenities",
+                "avgReviews",
+                "currCode",
+                "desc",
+                "discount",
+                "id",
+                "latitude",
+                "location",
+                "longitude",
+                "price",
+                "slug",
+                "stars",
+                "starsCount",
+                "thumbnail",
+                "title"
+            ],
+            "title": "FeaturedHotel"
+        },
+        "Amenity": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "icon": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".png"
+                    ]
+                },
+                "name": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "icon",
+                "name"
+            ],
+            "title": "Amenity"
+        },
+        "FeaturedHotelAvgReviews": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "clean": {
+                    "type": "integer"
+                },
+                "comfort": {
+                    "type": "integer"
+                },
+                "location": {
+                    "type": "integer"
+                },
+                "facilities": {
+                    "type": "integer"
+                },
+                "staff": {
+                    "type": "integer"
+                },
+                "totalReviews": {
+                    "type": "integer"
+                },
+                "overall": {
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "clean",
+                "comfort",
+                "facilities",
+                "location",
+                "overall",
+                "staff",
+                "totalReviews"
+            ],
+            "title": "FeaturedHotelAvgReviews"
+        },
+        "FeaturedTour": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "slug": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "thumbnail": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".jpg"
+                    ]
+                },
+                "stars": {
+                    "type": "string"
+                },
+                "starsCount": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "location": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "amenities": {
+                    "type": "null"
+                },
+                "avgReviews": {
+                    "$ref": "#/definitions/FeaturedCarAvgReviews"
+                },
+                "latitude": {
+                    "type": "string"
+                },
+                "longitude": {
+                    "type": "string"
+                },
+                "discount": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "integer"
+                },
+                "currCode": {
+                    "$ref": "#/definitions/CurrCode"
+                },
+                "inclusions": {
+                    "type": "null"
+                },
+                "tourDays": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "tourNights": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "tourType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "amenities",
+                "avgReviews",
+                "currCode",
+                "desc",
+                "discount",
+                "id",
+                "inclusions",
+                "latitude",
+                "location",
+                "longitude",
+                "price",
+                "slug",
+                "stars",
+                "starsCount",
+                "thumbnail",
+                "title",
+                "tourDays",
+                "tourNights",
+                "tourType"
+            ],
+            "title": "FeaturedTour"
+        },
+        "Language": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "rtl": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "default": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "country",
+                "default",
+                "id",
+                "name",
+                "rtl"
+            ],
+            "title": "Language"
+        },
+        "Module": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "order": {
+                    "type": "string",
+                    "format": "integer"
+                }
+            },
+            "required": [
+                "name",
+                "order",
+                "status"
+            ],
+            "title": "Module"
+        },
+        "PaymentGateway": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "c1": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "c2": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "c3": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "c4": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "c5": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "dev": {
+                    "type": "boolean"
+                },
+                "dev_endpoint": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string",
+                            "format": "uri",
+                            "qt-uri-protocols": [
+                                "https"
+                            ]
+                        }
+                    ]
+                },
+                "pro_endpoint": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string",
+                            "format": "uri",
+                            "qt-uri-protocols": [
+                                "https"
+                            ]
+                        }
+                    ]
+                },
+                "order": {
+                    "type": "string",
+                    "format": "integer"
+                }
+            },
+            "required": [
+                "c1",
+                "c2",
+                "c3",
+                "c4",
+                "c5",
+                "dev",
+                "dev_endpoint",
+                "order",
+                "pro_endpoint",
+                "title"
+            ],
+            "title": "PaymentGateway"
+        },
+        "Slider": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "slide_id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "slide_position": {
+                    "type": "string"
+                },
+                "slide_title_text": {
+                    "type": "null"
+                },
+                "slide_desc_text": {
+                    "type": "null"
+                },
+                "slide_optional_text": {
+                    "type": "null"
+                },
+                "slide_link": {
+                    "type": "null"
+                },
+                "slide_link_name": {
+                    "type": "null"
+                },
+                "slide_image": {
+                    "type": "string"
+                },
+                "slide_status": {
+                    "type": "string"
+                },
+                "slide_order": {
+                    "type": "string",
+                    "format": "integer"
+                }
+            },
+            "required": [
+                "slide_desc_text",
+                "slide_id",
+                "slide_image",
+                "slide_link",
+                "slide_link_name",
+                "slide_optional_text",
+                "slide_order",
+                "slide_position",
+                "slide_status",
+                "slide_title_text"
+            ],
+            "title": "Slider"
+        },
+        "Social": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "social_id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "social_name": {
+                    "type": "string"
+                },
+                "social_link": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ]
+                },
+                "social_position": {
+                    "type": "string"
+                },
+                "social_order": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "status": {
+                    "type": "boolean"
+                },
+                "social_icon": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "social_icon",
+                "social_id",
+                "social_link",
+                "social_name",
+                "social_order",
+                "social_position",
+                "status"
+            ],
+            "title": "Social"
+        },
+        "SymbolPlacement": {
+            "type": "string",
+            "enum": [
+                "before"
+            ],
+            "title": "SymbolPlacement"
+        },
+        "CurrCode": {
+            "type": "string",
+            "enum": [
+                "usd"
+            ],
+            "title": "CurrCode"
+        }
+    }
+}
