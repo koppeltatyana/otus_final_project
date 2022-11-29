@@ -1,0 +1,10 @@
+{
+    "SOURCE": {
+        "BASE_URL": "https://phptravels.net",
+        "API_URL": "https://phptravels.net/api/"
+    },
+    "BROWSER_WINDOW_WIDTH": 1920,
+    "BROWSER_WINDOW_HEIGHT": 1080,
+    "API_APP_KEY": "phptravels",
+    "API_SIGNUP_KEY": "SABSEPOWERFULLANDSECURECODESIGNUPKAYLIYE"
+}

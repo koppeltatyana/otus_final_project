@@ -3,6 +3,11 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+.idea
+allure-report
+allure-results
+logs
+
 # C extensions
 *.so
 
