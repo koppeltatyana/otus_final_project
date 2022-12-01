@@ -1,0 +1,304 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "type": "array",
+    "items": {
+        "$ref": "#/definitions/Welcome6Element"
+    },
+    "definitions": {
+        "Welcome6Element": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "segments": {
+                    "type": "array",
+                    "items": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/definitions/Segment"
+                        }
+                    }
+                }
+            },
+            "required": [
+                "segments"
+            ],
+            "title": "Welcome6Element"
+        },
+        "Segment": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "departure_flight_no": {
+                    "type": "integer"
+                },
+                "img": {
+                    "type": "string",
+                    "format": "uri",
+                    "qt-uri-protocols": [
+                        "https"
+                    ],
+                    "qt-uri-extensions": [
+                        ".png"
+                    ]
+                },
+                "departure_time": {
+                    "type": "string",
+                    "format": "time"
+                },
+                "departure_date": {
+                    "$ref": "#/definitions/Date"
+                },
+                "arrival_time": {
+                    "type": "string",
+                    "format": "time"
+                },
+                "arrival_date": {
+                    "$ref": "#/definitions/Date"
+                },
+                "departure_code": {
+                    "$ref": "#/definitions/DepartureCode"
+                },
+                "departure_airport": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Airport"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "arrival_code": {
+                    "$ref": "#/definitions/ArrivalCode"
+                },
+                "arrival_airport": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/definitions/Airport"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ]
+                },
+                "duration_time": {
+                    "type": "string"
+                },
+                "currency_code": {
+                    "$ref": "#/definitions/CurrencyCode"
+                },
+                "price": {
+                    "type": ["integer", "number"]
+                },
+                "actual_price": {
+                    "type": ["integer", "number"]
+                },
+                "b2c_price": {
+                    "type": "number"
+                },
+                "b2b_price": {
+                    "type": "number"
+                },
+                "b2e_price": {
+                    "type": "number"
+                },
+                "b2c_markup": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "b2b_markup": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "b2e_markup": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "service_fee": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "desposit": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "adult_price_b2b": {
+                    "type": "number"
+                },
+                "adult_price_b2c": {
+                    "type": "number"
+                },
+                "adult_price_b2e": {
+                    "type": "number"
+                },
+                "child_price_b2b": {
+                    "type": "number"
+                },
+                "child_price_b2c": {
+                    "type": "number"
+                },
+                "child_price_b2e": {
+                    "type": "number"
+                },
+                "infant_price_b2b": {
+                    "type": "number"
+                },
+                "infant_price_b2c": {
+                    "type": "number"
+                },
+                "infant_price_b2e": {
+                    "type": "number"
+                },
+                "adult_price": {
+                    "type": "integer"
+                },
+                "child_price": {
+                    "type": "integer"
+                },
+                "infant_price": {
+                    "type": "integer"
+                },
+                "url": {
+                    "type": "string"
+                },
+                "redirect": {
+                    "type": "null"
+                },
+                "airline_name": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "class_type": {
+                    "$ref": "#/definitions/ClassType"
+                },
+                "form": {
+                    "type": "string"
+                },
+                "form_name": {
+                    "type": "string"
+                },
+                "action": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/Supplier"
+                },
+                "supplier": {
+                    "$ref": "#/definitions/Supplier"
+                },
+                "module_color": {
+                    "$ref": "#/definitions/ModuleColor"
+                },
+                "supplier_id": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "luggage": {
+                    "type": "string"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "booking_token": {
+                    "type": "string"
+                },
+                "refundable": {
+                    "type": "null"
+                }
+            },
+            "required": [
+                "action",
+                "actual_price",
+                "adult_price",
+                "adult_price_b2b",
+                "adult_price_b2c",
+                "adult_price_b2e",
+                "airline_name",
+                "arrival_airport",
+                "arrival_code",
+                "arrival_date",
+                "arrival_time",
+                "b2b_markup",
+                "b2b_price",
+                "b2c_markup",
+                "b2c_price",
+                "b2e_markup",
+                "b2e_price",
+                "booking_token",
+                "child_price",
+                "child_price_b2b",
+                "child_price_b2c",
+                "child_price_b2e",
+                "class_type",
+                "currency_code",
+                "departure_airport",
+                "departure_code",
+                "departure_date",
+                "departure_flight_no",
+                "departure_time",
+                "desc",
+                "desposit",
+                "duration_time",
+                "form",
+                "form_name",
+                "img",
+                "infant_price",
+                "infant_price_b2b",
+                "infant_price_b2c",
+                "infant_price_b2e",
+                "luggage",
+                "module_color",
+                "price",
+                "redirect",
+                "refundable",
+                "service_fee",
+                "supplier",
+                "supplier_id",
+                "type",
+                "url"
+            ],
+            "title": "Segment"
+        },
+        "Airport": {
+            "type": "string",
+            "title": "Airport"
+        },
+        "ArrivalCode": {
+            "type": "string",
+            "title": "ArrivalCode"
+        },
+        "Date": {
+            "type": "string",
+            "title": "Date"
+        },
+        "ClassType": {
+            "type": "string",
+            "title": "ClassType"
+        },
+        "CurrencyCode": {
+            "type": "string",
+            "title": "CurrencyCode"
+        },
+        "DepartureCode": {
+            "type": "string",
+            "title": "DepartureCode"
+        },
+        "ModuleColor": {
+            "type": "string",
+            "enum": [
+                "#00a991"
+            ],
+            "title": "ModuleColor"
+        },
+        "Supplier": {
+            "type": "string",
+            "title": "Supplier"
+        }
+    }
+}

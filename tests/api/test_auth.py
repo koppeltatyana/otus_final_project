@@ -2,12 +2,11 @@ import pytest
 from allure import suite, title
 
 from data.users import ADMIN_USER, AGENT_USER, CUSTOMER_USER, SUPPLIER_USER
-from utils.helpers import asserts, random_email, random_password, random_user_first_name, random_user_last_name, \
-    random_user_data
+from utils.helpers import asserts, random_user_data
 
 
 @suite('[Pytest][API]')
-class TestApiAuthorization:
+class TestAuth:
     """
     Класс для апи-тестов по авторизации, регистрации и сбросу пароля
     """
@@ -31,20 +30,22 @@ class TestApiAuthorization:
         assert status_code == 200
         asserts(
             response=response,
-            name='valid_login'
+            name='auth/valid_login'
         )
 
     @title('Невалидный логин')
     def test_invalid_login(self, api_app_key, api_auth):
+        user_data = random_user_data()
+
         response, status_code = api_auth.login(
             app_key=api_app_key,
-            email=random_email(),
-            password=random_password()
+            email=user_data['email'],
+            password=user_data['password'],
         )
         assert status_code == 200
         asserts(
             response=response,
-            name='invalid_login'
+            name='auth/invalid_login'
         )
 
     @title('Регистрация пользователя')
@@ -66,7 +67,7 @@ class TestApiAuthorization:
         assert status_code == 200
         asserts(
             response=response,
-            name='signup'
+            name='auth/signup'
         )
 
     @title('Сброс пароля пользователя')
@@ -80,5 +81,5 @@ class TestApiAuthorization:
         assert status_code == 200
         asserts(
             response=response,
-            name='password_reset'
+            name='auth/password_reset'
         )

@@ -1,8 +1,10 @@
 from json import load
 from os.path import join
 from pathlib import Path
-from random import choice
+from random import choice, randint
+import socket
 import string
+import struct
 
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
@@ -64,6 +66,10 @@ def random_user_first_name() -> str:
 
 def random_user_last_name() -> str:
     return Person().last_name()
+
+
+def random_ip() -> str:
+    return socket.inet_ntoa(struct.pack('>I', randint(1, 0xffffffff)))
 
 
 def random_user_data(user_type: str = 'customer') -> dict:

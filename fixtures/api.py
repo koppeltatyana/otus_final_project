@@ -1,6 +1,6 @@
 from _pytest.fixtures import fixture
 
-from api import ApiAuth, ApiMainInfo
+from api import ApiAuth, ApiFlights, ApiHotels, ApiTours, ApiTransfers
 from utils.helpers import get_settings, random_user_data
 
 
@@ -15,13 +15,28 @@ def api_signup_key():
 
 
 @fixture(scope='function')
-def api_main_info():
-    return ApiMainInfo(api_base_url=get_settings()['SOURCE']['API_URL'])
+def api_auth():
+    return ApiAuth(api_base_url=get_settings()['SOURCE']['API_URL'])
 
 
 @fixture(scope='function')
-def api_auth():
-    return ApiAuth(api_base_url=get_settings()['SOURCE']['API_URL'])
+def api_flights():
+    return ApiFlights(api_base_url=get_settings()['SOURCE']['API_URL'])
+
+
+@fixture(scope='function')
+def api_hotels():
+    return ApiHotels(api_base_url=get_settings()['SOURCE']['API_URL'])
+
+
+@fixture(scope='function')
+def api_tours():
+    return ApiTours(api_base_url=get_settings()['SOURCE']['API_URL'])
+
+
+@fixture(scope='function')
+def api_transfers():
+    return ApiTransfers(api_base_url=get_settings()['SOURCE']['API_URL'])
 
 
 @fixture(scope='function')
