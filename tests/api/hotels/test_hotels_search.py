@@ -15,7 +15,7 @@ class TestHotelsSearch:
     """
 
     @title('Поиск отеля')
-    @pytest.mark.parametrize('city', ['dubai'])
+    @pytest.mark.parametrize('city', ['dubai', 'istanbul'])
     def test_hotels_search(self, api_app_key, api_hotels, city):
         checkin = (datetime.datetime.today() + datetime.timedelta(days=5)).strftime("%Y-%m-%d")
         checkout = (datetime.datetime.today() + datetime.timedelta(days=10)).strftime("%Y-%m-%d")

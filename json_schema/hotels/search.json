@@ -34,23 +34,22 @@
                     "type": "string"
                 },
                 "price": {
-                    "type": "integer"
+                    "type": ["integer", "number", "string"]
                 },
                 "pre_day": {
-                    "type": "integer"
+                    "type": ["integer", "number", "string"]
                 },
                 "actual_price": {
-                    "type": "string",
-                    "format": "integer"
+                    "type": ["integer","number", "string"]
                 },
                 "b2c_price": {
-                    "type": "number"
+                    "type": ["integer","number", "string"]
                 },
                 "b2b_price": {
-                    "type": "number"
+                    "type": ["integer","number", "string"]
                 },
                 "b2e_price": {
-                    "type": "number"
+                    "type": ["integer","number", "string"]
                 },
                 "b2c_markup": {
                     "type": "string",

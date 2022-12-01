@@ -19,9 +19,19 @@ class TestFlightsSearch:
     def test_oneway_flights_search_with_non_empty_result(self, api_app_key, api_flights, origin, destination):
         departure_date = (datetime.datetime.today() + datetime.timedelta(days=5)).strftime("%Y-%m-%d")
 
-        response, status_code = api_flights.search_hotels(app_key=api_app_key, city=, checkin=, checkout=, nationality=,
-                                                          adults_count=1, children_count=0, rooms=, lang=,
-                                                          currency=choice(CURRENCIES), ip=random_ip())
+        response, status_code = api_flights.search_flights(
+            app_key=api_app_key,
+            origin=origin,
+            destination=destination,
+            flight_type='oneway',
+            departure_date=departure_date,
+            adults_count=1,
+            children_count=0,
+            infants_count=0,
+            class_type=choice(FLIGHTS_TICKET_TYPE),
+            currency=choice(CURRENCIES),
+            ip=random_ip(),
+        )
         assert status_code == 200
         asserts(
             response=response,
@@ -33,9 +43,19 @@ class TestFlightsSearch:
     def test_oneway_flights_search_with_empty_result(self, api_app_key, api_flights, origin, destination):
         departure_date = (datetime.datetime.today() + datetime.timedelta(days=5)).strftime('%Y-%m-%d')
 
-        response, status_code = api_flights.search_hotels(app_key=api_app_key, city=, checkin=, checkout=, nationality=,
-                                                          adults_count=1, children_count=0, rooms=, lang=,
-                                                          currency=choice(CURRENCIES), ip=random_ip())
+        response, status_code = api_flights.search_flights(
+            app_key=api_app_key,
+            origin=origin,
+            destination=destination,
+            flight_type='oneway',
+            departure_date=departure_date,
+            adults_count=1,
+            children_count=0,
+            infants_count=0,
+            class_type=choice(FLIGHTS_TICKET_TYPE),
+            currency=choice(CURRENCIES),
+            ip=random_ip(),
+        )
         assert status_code == 200
         assert response == '', 'Результат поиска не пуст'
 
@@ -45,9 +65,20 @@ class TestFlightsSearch:
         departure_date = (datetime.datetime.today() + datetime.timedelta(days=5)).strftime("%Y-%m-%d")
         return_date = ((datetime.datetime.today() + datetime.timedelta(days=6)).strftime("%Y-%m-%d"))
 
-        response, status_code = api_flights.search_hotels(app_key=api_app_key, city=, checkin=, checkout=, nationality=,
-                                                          adults_count=1, children_count=0, rooms=, lang=,
-                                                          currency=choice(CURRENCIES), ip=random_ip())
+        response, status_code = api_flights.search_flights(
+            app_key=api_app_key,
+            origin=origin,
+            destination=destination,
+            flight_type='oneway',
+            departure_date=departure_date,
+            return_date=return_date,
+            adults_count=1,
+            children_count=0,
+            infants_count=0,
+            class_type=choice(FLIGHTS_TICKET_TYPE),
+            currency=choice(CURRENCIES),
+            ip=random_ip(),
+        )
         assert status_code == 200
         asserts(
             response=response,
