@@ -10,8 +10,8 @@ def api_app_key():
 
 
 @fixture(scope='session')
-def api_signup_key():
-    return get_settings()['API_SIGNUP_KEY']
+def api_app_token():
+    return get_settings()['API_APP_TOKEN']
 
 
 @fixture(scope='function')
@@ -40,7 +40,7 @@ def api_transfers():
 
 
 @fixture(scope='function')
-def api_create_user(api_auth, api_app_key, api_signup_key):
+def api_create_user(api_auth, api_app_key, api_app_token):
     """
     Фикстура для регистрации нового пользователя
     """
@@ -65,7 +65,7 @@ def api_create_user(api_auth, api_app_key, api_signup_key):
             phone=user_data['phone'],
             status=user_data['status'],
             user_type=user_type,
-            signup_token=api_signup_key,
+            signup_token=api_app_token,
         )
         return user_data
     return wrapper

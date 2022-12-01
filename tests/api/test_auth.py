@@ -25,12 +25,12 @@ class TestAuth:
         response, status_code = api_auth.login(
             app_key=api_app_key,
             email=email,
-            password=password
+            password=password,
         )
         assert status_code == 200
         asserts(
             response=response,
-            name='auth/valid_login'
+            name='auth/valid_login',
         )
 
     @title('Невалидный логин')
@@ -45,12 +45,12 @@ class TestAuth:
         assert status_code == 200
         asserts(
             response=response,
-            name='auth/invalid_login'
+            name='auth/invalid_login',
         )
 
     @title('Регистрация пользователя')
     @pytest.mark.parametrize('user_type', ['customer', 'guest', 'supplier', 'agent'])
-    def test_signup(self, api_app_key, api_signup_key, api_auth, user_type):
+    def test_signup(self, api_app_key, api_app_token, api_auth, user_type):
         user_data = random_user_data(user_type=user_type)
 
         response, status_code = api_auth.signup(
@@ -62,24 +62,24 @@ class TestAuth:
             phone=user_data['phone'],
             status=user_data['status'],
             user_type=user_data['user_type'],
-            signup_token=api_signup_key,
+            signup_token=api_app_token,
         )
         assert status_code == 200
         asserts(
             response=response,
-            name='auth/signup'
+            name='auth/signup',
         )
 
     @title('Сброс пароля пользователя')
-    def test_password_reset(self, api_app_key, api_signup_key, api_auth, api_create_user):
+    def test_password_reset(self, api_app_key, api_auth, api_create_user):
         user = api_create_user(user_type='customer')
 
         response, status_code = api_auth.reset_password(
             app_key=api_app_key,
-            email=user['email']
+            email=user['email'],
         )
         assert status_code == 200
         asserts(
             response=response,
-            name='auth/password_reset'
+            name='auth/password_reset',
         )
