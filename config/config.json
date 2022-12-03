@@ -1,10 +1,8 @@
 {
     "SOURCE": {
-        "BASE_URL": "https://phptravels.net",
-        "API_URL": "https://phptravels.net/api/"
+        "BASE_URL": "https://automationintesting.online",
+        "API_URL": "https://restful-booker.herokuapp.com"
     },
     "BROWSER_WINDOW_WIDTH": 1920,
-    "BROWSER_WINDOW_HEIGHT": 1080,
-    "API_APP_KEY": "phptravels",
-    "API_APP_TOKEN": "SABSEPOWERFULLANDSECURECODESIGNUPKAYLIYE"
+    "BROWSER_WINDOW_HEIGHT": 1080
 }

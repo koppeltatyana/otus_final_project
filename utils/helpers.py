@@ -1,10 +1,8 @@
 from json import load
 from os.path import join
 from pathlib import Path
-from random import choice, randint
-import socket
+from random import choice
 import string
-import struct
 
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
@@ -52,12 +50,12 @@ def random_email(char_num: int = 5) -> str:
     return ''.join(choice(string.ascii_lowercase) for _ in range(char_num)) + choice(['gmail.com', 'mail.ru'])
 
 
+def random_string(char_num: int = 5) -> str:
+    return ''.join(choice(string.ascii_lowercase) for _ in range(char_num))
+
+
 def random_phone() -> str:
     return ''.join(choice(string.digits) for _ in range(10))
-
-
-def random_password(char_num: int = 5) -> str:
-    return ''.join(choice(string.ascii_letters) + choice(string.digits) for _ in range(char_num))
 
 
 def random_user_first_name() -> str:
@@ -68,24 +66,16 @@ def random_user_last_name() -> str:
     return Person().last_name()
 
 
-def random_ip() -> str:
-    return socket.inet_ntoa(struct.pack('>I', randint(1, 0xffffffff)))
-
-
-def random_user_data(user_type: str = 'customer') -> dict:
+def random_user_data() -> dict:
     """
     Сгенерировать пользовательские данные
 
-    :param user_type: тип пользователя ('customer', 'guest', 'supplier' или 'agent')
     :return: рандомные данные пользователя в формате словаря
     """
 
     return {
         'first_name': random_user_first_name(),
         'last_name': random_user_last_name(),
-        'password': random_password(),
         'email': random_email(),
         'phone': random_phone(),
-        'status': 'yes',
-        'user_type': user_type,
     }

@@ -2,4 +2,6 @@ from pages.base_page import BasePage
 
 
 class MainPage(BasePage):
-    pass
+    """
+    Класс для хранения методов главной страницы
+    """

@@ -1,31 +1,20 @@
-import pytest
 from allure import suite, title
 
-from data.users import ADMIN_USER, AGENT_USER, CUSTOMER_USER, SUPPLIER_USER
-from utils.helpers import asserts, random_user_data
+from data.data import ADMIN_USER
+from utils.helpers import asserts, random_string
 
 
 @suite('[Pytest][API]')
 class TestAuth:
     """
-    Класс для апи-тестов по авторизации, регистрации и сбросу пароля
+    Класс для апи-тестов по авторизации
     """
 
-    @title('Авторизация пользователем с разными ролями')
-    @pytest.mark.parametrize(
-        'email, password',
-        [
-            (CUSTOMER_USER['email'], CUSTOMER_USER['password']),
-            (ADMIN_USER['email'], ADMIN_USER['password']),
-            (AGENT_USER['email'], AGENT_USER['password']),
-            (SUPPLIER_USER['email'], SUPPLIER_USER['password'])
-        ]
-    )
-    def test_user_login(self, api_app_key, api_auth, email, password):
-        response, status_code = api_auth.login(
-            app_key=api_app_key,
-            email=email,
-            password=password,
+    @title('Авторизация пользователем в админ-панели')
+    def test_admin_panel_login(self, api_auth):
+        response, status_code = api_auth.admin_panel_login(
+            username=ADMIN_USER['username'],
+            password=ADMIN_USER['password'],
         )
         assert status_code == 200
         asserts(
@@ -34,13 +23,10 @@ class TestAuth:
         )
 
     @title('Невалидный логин')
-    def test_invalid_login(self, api_app_key, api_auth):
-        user_data = random_user_data()
-
-        response, status_code = api_auth.login(
-            app_key=api_app_key,
-            email=user_data['email'],
-            password=user_data['password'],
+    def test_invalid_login(self, api_auth):
+        response, status_code = api_auth.admin_panel_login(
+            username=random_string(),
+            password=random_string(),
         )
         assert status_code == 200
         asserts(
@@ -48,38 +34,8 @@ class TestAuth:
             name='auth/invalid_login',
         )
 
-    @title('Регистрация пользователя')
-    @pytest.mark.parametrize('user_type', ['customer', 'guest', 'supplier', 'agent'])
-    def test_signup(self, api_app_key, api_app_token, api_auth, user_type):
-        user_data = random_user_data(user_type=user_type)
-
-        response, status_code = api_auth.signup(
-            app_key=api_app_key,
-            first_name=user_data['first_name'],
-            last_name=user_data['last_name'],
-            password=user_data['password'],
-            email=user_data['email'],
-            phone=user_data['phone'],
-            status=user_data['status'],
-            user_type=user_data['user_type'],
-            signup_token=api_app_token,
-        )
-        assert status_code == 200
-        asserts(
-            response=response,
-            name='auth/signup',
-        )
-
-    @title('Сброс пароля пользователя')
-    def test_password_reset(self, api_app_key, api_auth, api_create_user):
-        user = api_create_user(user_type='customer')
-
-        response, status_code = api_auth.reset_password(
-            app_key=api_app_key,
-            email=user['email'],
-        )
-        assert status_code == 200
-        asserts(
-            response=response,
-            name='auth/password_reset',
-        )
+    @title('Проверка работоспособности сайта')
+    def test_site_health(self, api_auth):
+        response, status_code = api_auth.check_health()
+        assert status_code == 201, f'Статус код запроса не соответствует ожидаемому. ОР: 201. ФР: {status_code}'
+        assert response == 'Created', f'Тело ответа не соответствует ожидаемому. ОР: "Created". ФР: "{response}"'

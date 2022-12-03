@@ -1,6 +1,11 @@
-from time import sleep
+from allure import suite, title
+
+from data.data import ADMIN_USER
+from utils.helpers import asserts, random_string
 
 
-def test_test(main_page):
-    main_page._open()
-    sleep(4)
+@suite('[Pytest][UI]')
+class TestMainPage:
+    """
+    Класс для ui-тестов главной страницы сайта
+    """
