@@ -1,17 +1,8 @@
 from _pytest.fixtures import fixture
 
-from api import ApiAuth, ApiFlights, ApiHotels, ApiTours, ApiTransfers
-from utils.helpers import get_settings, random_user_data
-
-
-@fixture(scope='session')
-def api_app_key():
-    return get_settings()['API_APP_KEY']
-
-
-@fixture(scope='session')
-def api_app_token():
-    return get_settings()['API_APP_TOKEN']
+from api.api_auth import ApiAuth
+from data.data import ADMIN_USER
+from utils.helpers import random_user_data, get_settings
 
 
 @fixture(scope='function')
@@ -19,24 +10,13 @@ def api_auth():
     return ApiAuth(api_base_url=get_settings()['SOURCE']['API_URL'])
 
 
-@fixture(scope='function')
-def api_flights():
-    return ApiFlights(api_base_url=get_settings()['SOURCE']['API_URL'])
-
-
-@fixture(scope='function')
-def api_hotels():
-    return ApiHotels(api_base_url=get_settings()['SOURCE']['API_URL'])
-
-
-@fixture(scope='function')
-def api_tours():
-    return ApiTours(api_base_url=get_settings()['SOURCE']['API_URL'])
-
-
-@fixture(scope='function')
-def api_transfers():
-    return ApiTransfers(api_base_url=get_settings()['SOURCE']['API_URL'])
+@fixture(scope='session')
+def access_token(api_auth):
+    token = api_auth.admin_panel_login(
+        login=ADMIN_USER['username'],
+        password=ADMIN_USER['password'],
+    )[0]['token']
+    return token
 
 
 @fixture(scope='function')

@@ -1,1 +1,3 @@
+from .admin_login_page_locators import AdminLoginPageLocators
+from .admin_main_page_locators import AdminMainPageLocators
 from .main_page_locators import MainPageLocators
