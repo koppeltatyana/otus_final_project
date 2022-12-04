@@ -33,22 +33,3 @@ class TestBooking:
             response=response,
             name='booking/create_booking',
         )
-
-    @title('Создание бронирования с дополните')
-    def test_create_booking_without_additional_needs(self, api_booking):
-        checkin = (datetime.datetime.today() + datetime.timedelta(days=randint(1, 5))).strftime("%Y-%m-%d")
-        checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(5, 30))).strftime("%Y-%m-%d")
-        response, status_code = api_booking.create_booking(
-            firstname=random_user_data()['firstname'],
-            lastname=random_user_data()['lastname'],
-            total_price=randint(100, 1000),
-            checkin=checkin,
-            checkout=checkout,
-            additional_needs=None,
-            deposit_paid=True,
-        )
-        assert status_code == 200
-        asserts(
-            response=response,
-            name='booking/create_booking',
-        )
