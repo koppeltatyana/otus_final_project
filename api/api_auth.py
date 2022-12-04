@@ -7,7 +7,7 @@ from api.base_api import BaseApi
 
 class ApiAuth(BaseApi):
     """
-    Класс для хранения апи-методов
+    Класс для хранения апи-методов по авторизации
     """
 
     @step('Проверить работоспособность сайта')
@@ -33,10 +33,12 @@ class ApiAuth(BaseApi):
 
         response = self._post(
             url=f'auth',
-            data=dumps({
-                'username': username,
-                'password': password,
-            }),
+            data=dumps(
+                {
+                    'username': username,
+                    'password': password,
+                },
+            ),
             headers={
                 'Content-Type': 'application/json',
             }

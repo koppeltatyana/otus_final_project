@@ -20,7 +20,6 @@ def pytest_addoption(parser):
         action='store_true',
         help='Enter "--headless" option if you don\'t want to see browser during a test'
     )
-    parser.addoption('--mobile', action='store_true', help='Enter "--mobile" if you want to start mobile test version')
     parser.addoption('--remote', action='store_true', help='Enter "--remote" if you want to execute remote server')
 
 
@@ -31,6 +30,7 @@ def browser(request):
     browser_name = request.config.getoption('--browser_name')
     headless = request.config.getoption('--headless')
     is_remote = request.config.getoption('--remote')
+    executor = get_settings()['SELENIUM_HUB']
 
     if browser_name not in ['chrome', 'firefox', 'edge', 'MicrosoftEdge']:
         raise AssertionError('This browser is not supported.')
@@ -46,7 +46,24 @@ def browser(request):
         options = webdriver.EdgeOptions()
 
     if is_remote:
-        driver = ''
+        capabilities = {
+            'browserName': browser_name,
+            'name': 'Tatyana',
+            'acceptSslCerts': True,
+            'acceptInsecureCerts': True,
+            'timeZone': 'Europe/Moscow',
+        }
+        # todo: доделать видева или фото :)
+        # capabilities['selenoid:options'] = {
+        #     'enableVNC': enable_vnc,
+        #     'enableVideo': enable_video,
+        #     'enableLogs': enable_selenoid_logs,
+        # }
+        driver = webdriver.Remote(
+            command_executor=executor,
+            desired_capabilities=capabilities,
+            options=options,
+        )
     else:
         if browser_name == 'chrome':
             driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)

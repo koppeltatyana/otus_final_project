@@ -1,13 +1,15 @@
 from json import load
 from os.path import join
 from pathlib import Path
-from random import choice
+from random import choice, sample
 import string
 
 from jsonschema.exceptions import ValidationError
 from jsonschema.validators import validate
 import mimesis.exceptions
 from mimesis import Person
+
+from api import ApiBooking
 
 
 def get_settings():
@@ -44,6 +46,74 @@ def asserts(response, name):
         return False
 
     assert validate_json(_response=response, _name=name), f'Ошибка при валидации схемы - {name}'
+
+
+def get_random_booking_ids_list(count: int = 5) -> list[str]:
+    """
+    Получить список случайных идентификаторов бронирований.
+
+    :param count: количество id, которое необходимо сформировать.
+    :return: список идентификаторов бронирований в формате списка строк
+    """
+    api_booking = ApiBooking(api_base_url=get_settings()['SOURCE']['API_URL'])
+    response = api_booking.get_booking_ids()[0]
+    booking_id_list = [x['bookingid'] for x in response]
+    return sample(booking_id_list, count)
+
+
+def get_random_booking_client_data_list(count: int = 5) -> list[dict]:
+    """
+    Получить список случайных данных клиентов с бронированиями
+
+    :param count: количество клиентских данных, которое необходимо сформировать.
+    :return: список клиентских данных
+    """
+    clients_data_list = []
+    api_booking = ApiBooking(api_base_url=get_settings()['SOURCE']['API_URL'])
+    booking_id_list = sample([x['bookingid'] for x in api_booking.get_booking_ids()[0]], count)
+    for booking_id in booking_id_list:
+        clients_data_list += [
+            api_booking.get_booking_info_by_id(booking_id=booking_id)[0]
+        ]
+    return clients_data_list
+
+
+def get_random_booking_clients_name_list(count: int = 5) -> list[dict]:
+    """
+    Получение списка имен клиентов
+
+    :param count: количество клиентских имен, которое необходимо сформировать.
+    :return: список имен клиентов
+    """
+    clients_name_list = []
+    clients_data_list = get_random_booking_client_data_list(count=count)
+    for client in clients_data_list:
+        clients_name_list += [
+            {
+                'firstname': client['firstname'],
+                'lastname': client['lastname'],
+            }
+        ]
+    return clients_name_list
+
+
+def get_random_booking_clients_residence_date_list(count: int = 5) -> list[dict]:
+    """
+    Получение списка дат пребывания клиентов
+
+    :param count: количество клиентских дат пребывания, которое необходимо сформировать.
+    :return: список дат пребывания
+    """
+    residence_date_list = []
+    clients_data_list = get_random_booking_client_data_list(count=count)
+    for client in clients_data_list:
+        residence_date_list += [
+            {
+                'checkin': client['bookingdates']['checkin'],
+                'checkout': client['bookingdates']['checkout'],
+            }
+        ]
+    return residence_date_list
 
 
 def random_email(char_num: int = 5) -> str:

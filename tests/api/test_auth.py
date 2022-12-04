@@ -1,6 +1,6 @@
 from allure import suite, title
 
-from data.data import ADMIN_USER
+from data.data import API_ADMIN_USER
 from utils.helpers import asserts, random_string
 
 
@@ -13,8 +13,8 @@ class TestAuth:
     @title('Авторизация пользователем в админ-панели')
     def test_admin_panel_login(self, api_auth):
         response, status_code = api_auth.admin_panel_login(
-            username=ADMIN_USER['username'],
-            password=ADMIN_USER['password'],
+            username=API_ADMIN_USER['username'],
+            password=API_ADMIN_USER['password'],
         )
         assert status_code == 200
         asserts(
