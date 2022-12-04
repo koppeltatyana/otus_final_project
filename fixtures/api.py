@@ -24,11 +24,6 @@ def api_booking_id(request):
     return request.param
 
 
-@fixture(scope='function', params=get_random_booking_ids_list(count=1))
-def api_one_booking_id(request):
-    return request.param
-
-
 @fixture(scope='function', params=get_random_booking_clients_name_list())
 def api_booking_clients_name(request):
     return request.param
