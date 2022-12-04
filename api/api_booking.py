@@ -111,33 +111,24 @@ class ApiBooking(BaseApi):
         :param deposit_paid: оплачен ли депозит (необязательное)
         :return: результат выполнения запроса в формате кортежа (необязательное)
         """
-        booking_info = self.get_booking_info_by_id(booking_id=booking_id)[0]
-        if firstname is None:
-            firstname = booking_info['firstname']
-        if lastname is None:
-            lastname = booking_info['lastname']
-        if total_price is None:
-            total_price = booking_info['totalprice']
-        if deposit_paid is None:
-            deposit_paid = booking_info['depositpaid']
-        if checkin is None:
-            checkin = booking_info['bookingdates']['checkin']
-        if checkout is None:
-            checkout = booking_info['bookingdates']['checkout']
-        if additional_needs is None:
-            additional_needs = booking_info['additionalneeds']
+        data = {}
+        if firstname is not None:
+            data['firstname'] = firstname
+        if lastname is not None:
+            data['lastname'] = lastname
+        if total_price is not None:
+            data['totalprice'] = total_price
+        if deposit_paid is not None:
+            data['depositpaid'] = deposit_paid
+        if checkin is not None or checkout is not None:
+            data['bookingdates'] = {}
+            if checkin is not None:
+                data['bookingdates']['checkin'] = checkin
+            if checkout is not None:
+                data['bookingdates']['checkout'] = checkout
+        if additional_needs is not None:
+            data['additionalneeds'] = additional_needs
 
-        data = {
-            'firstname': firstname,
-            'lastname': lastname,
-            'totalprice': total_price,
-            'depositpaid': deposit_paid,
-            'bookingdates': {
-                'checkin': checkin,
-                'checkout': checkout,
-            },
-            'additionalneeds': additional_needs,
-        }
         response = self._patch(
             url=f'booking/{booking_id}',
             data=dumps(data),
