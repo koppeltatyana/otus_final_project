@@ -148,3 +148,22 @@ class ApiBooking(BaseApi):
             }
         )
         return response.json(), response.status_code
+
+    @step('Удалить бронирование')
+    def delete_booking(self, access_token: str, booking_id: int) -> (str, int):
+        """
+        Удаление бронирования
+
+        :param access_token: токен авторизованного админа
+        :param booking_id: идентификатор бронирования
+        :return: результат выполнения запроса в формате кортежа (необязательное)
+        """
+
+        response = self._delete(
+            url=f'booking/{booking_id}',
+            headers={
+                'Content-Type': 'application/json',
+                'Cookie': f'token={access_token}',
+            }
+        )
+        return response.text, response.status_code

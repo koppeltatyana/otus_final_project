@@ -34,15 +34,20 @@ class TestBooking:
             name='booking/create_booking',
         )
 
-    @title('Редактирование бронирования с id "{api_one_booking_id}"')
+    @title('Редактирование бронирования')
     @pytest.mark.parametrize('additional_needs', [None, 'Breakfast', ['Breakfast', 'Morning Alarm']])
     @pytest.mark.parametrize('deposit_paid', [True, False])
-    def test_full_booking_editing(self, api_booking, access_token, additional_needs, deposit_paid, api_one_booking_id):
+    def test_full_booking_editing(self, api_booking, access_token, additional_needs, deposit_paid):
         checkin = (datetime.datetime.today() + datetime.timedelta(days=randint(1, 5))).strftime('%Y-%m-%d')
         checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(5, 30))).strftime('%Y-%m-%d')
+
+        random_booking_id = choice(
+            api_booking.get_booking_ids()[0],
+        )['bookingid']  # получить рандомный идентификатор бронирования
+
         response, status_code = api_booking.edit_booking(
             access_token=access_token,
-            booking_id=api_one_booking_id,
+            booking_id=random_booking_id,
             firstname=random_user_data()['firstname'],
             lastname=random_user_data()['lastname'],
             total_price=randint(100, 1000),
@@ -77,3 +82,12 @@ class TestBooking:
             response=response,
             name='booking/get_booking_info',
         )
+
+    @title('Удаление бронирования "api_create_booking"')
+    def test_booking_deleting(self, api_booking, access_token, api_create_booking):
+        response, status_code = api_booking.delete_booking(
+            access_token=access_token,
+            booking_id=api_create_booking['bookingid'],
+        )
+        assert status_code == 201
+        assert response == 'Created'
