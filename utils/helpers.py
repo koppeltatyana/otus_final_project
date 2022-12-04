@@ -128,11 +128,11 @@ def random_phone() -> str:
     return ''.join(choice(string.digits) for _ in range(10))
 
 
-def random_user_first_name() -> str:
+def random_user_firstname() -> str:
     return Person().first_name()
 
 
-def random_user_last_name() -> str:
+def random_user_lastname() -> str:
     return Person().last_name()
 
 
@@ -144,8 +144,8 @@ def random_user_data() -> dict:
     """
 
     return {
-        'first_name': random_user_first_name(),
-        'last_name': random_user_last_name(),
+        'firstname': random_user_firstname(),
+        'lastname': random_user_lastname(),
         'email': random_email(),
         'phone': random_phone(),
     }

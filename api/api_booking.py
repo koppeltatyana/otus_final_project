@@ -1,3 +1,5 @@
+from json import dumps
+
 from allure_commons._allure import step
 
 from api.base_api import BaseApi
@@ -51,3 +53,41 @@ class ApiBooking(BaseApi):
             return response.json(), response.status_code
         except Exception:
             return response.text, response.status_code
+
+    @step('Создать бронирование')
+    def create_booking(
+        self, firstname: str, lastname: str, total_price: int, checkin: str, checkout: str,
+        additional_needs: str or list[str] = None, deposit_paid: bool = False,
+    ) -> (dict, int):
+        """
+        Создание бронирования
+
+        :param firstname: имя гостя
+        :param lastname: фамилия гостя
+        :param total_price: конечная стоимость бронирования
+        :param checkin: дата заезда (формат даты: YYYY-MM-DD)
+        :param checkout: дата выезда (формат даты: YYYY-MM-DD)
+        :param additional_needs: дополнительные услуги
+        :param deposit_paid: оплачен ли депозит
+        :return: результат выполнения запроса в формате кортежа
+        """
+
+        data = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'totalprice': total_price,
+            'depositpaid': deposit_paid,
+            'bookingdates': {
+                'checkin': checkin,
+                'checkout': checkout,
+            },
+            'additionalneeds': additional_needs,
+        }
+        response = self._post(
+            url=f'booking',
+            data=dumps(data),
+            headers={
+                'Content-Type': 'application/json',
+            },
+        )
+        return response.json(), response.status_code
