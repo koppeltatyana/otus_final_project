@@ -21,6 +21,11 @@ def api_booking_id(request):
     return request.param
 
 
+@fixture(scope='function', params=get_random_booking_ids_list(count=1))
+def api_one_booking_id(request):
+    return request.param
+
+
 @fixture(scope='function', params=get_random_booking_clients_name_list())
 def api_booking_clients_name(request):
     return request.param
@@ -31,10 +36,10 @@ def api_booking_clients_residence_date(request):
     return request.param
 
 
-@fixture(scope='session')
+@fixture(scope='function')
 def access_token(api_auth):
     token = api_auth.admin_panel_login(
-        login=API_ADMIN_USER['username'],
+        username=API_ADMIN_USER['username'],
         password=API_ADMIN_USER['password'],
     )[0]['token']
     return token

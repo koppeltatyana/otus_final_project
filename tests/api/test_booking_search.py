@@ -58,7 +58,7 @@ class TestBookingSearch:
         )
 
     @title('Получение информации по бронированию по несуществующему идентификатору "{booking_id}"')
-    @pytest.mark.parametrize('booking_id', [1, 2])
+    @pytest.mark.parametrize('booking_id', [1, 0])
     def test_get_booking_info_by_non_existent_id(self, api_booking, booking_id):
         response, status_code = api_booking.get_booking_info_by_id(
             booking_id=booking_id,

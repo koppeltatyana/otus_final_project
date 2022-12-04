@@ -22,7 +22,7 @@
                     "$ref": "#/definitions/Bookingdates"
                 },
                 "additionalneeds": {
-                    "type": ["null", "string"]
+                    "type": ["null", "string", "array"]
                 }
             },
             "required": [

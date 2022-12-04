@@ -39,7 +39,7 @@ class ApiBooking(BaseApi):
             return response.text, response.status_code
 
     @step('Получить информацию по бронированию по его идентификатору')
-    def get_booking_info_by_id(self, booking_id: str) -> (dict, int):
+    def get_booking_info_by_id(self, booking_id: str or int) -> (dict, int):
         """
         Получение информации по бронированию
 
@@ -89,5 +89,62 @@ class ApiBooking(BaseApi):
             headers={
                 'Content-Type': 'application/json',
             },
+        )
+        return response.json(), response.status_code
+
+    @step('Редактировать бронирование')
+    def edit_booking(
+        self, access_token: str, booking_id: int, firstname: str = None, lastname: str = None, total_price: int = None,
+        checkin: str = None, checkout: str = None, additional_needs: str or list = None, deposit_paid: bool = False,
+    ) -> (dict, int):
+        """
+        Редактирование бронирования
+
+        :param access_token: токен авторизованного админа
+        :param booking_id: идентификатор бронирования
+        :param firstname: имя гостя (необязательное)
+        :param lastname: фамилия гостя (необязательное)
+        :param total_price: конечная стоимость бронирования (необязательное)
+        :param checkin: дата заезда (формат даты: YYYY-MM-DD) (необязательное)
+        :param checkout: дата выезда (формат даты: YYYY-MM-DD) (необязательное)
+        :param additional_needs: дополнительные услуги (необязательное)
+        :param deposit_paid: оплачен ли депозит (необязательное)
+        :return: результат выполнения запроса в формате кортежа (необязательное)
+        """
+        booking_info = self.get_booking_info_by_id(booking_id=booking_id)[0]
+        if firstname is None:
+            firstname = booking_info['firstname']
+        if lastname is None:
+            lastname = booking_info['lastname']
+        if total_price is None:
+            total_price = booking_info['totalprice']
+        if deposit_paid is None:
+            deposit_paid = booking_info['depositpaid']
+        if checkin is None:
+            checkin = booking_info['bookingdates']['checkin']
+        if checkout is None:
+            checkout = booking_info['bookingdates']['checkout']
+        if additional_needs is None:
+            additional_needs = booking_info['additionalneeds']
+
+        data = {
+            'firstname': firstname,
+            'lastname': lastname,
+            'totalprice': total_price,
+            'depositpaid': deposit_paid,
+            'bookingdates': {
+                'checkin': checkin,
+                'checkout': checkout,
+            },
+            'additionalneeds': additional_needs,
+        }
+        response = self._patch(
+            url=f'booking/{booking_id}',
+            data=dumps(data),
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Cookie': f'token={access_token}',
+            }
         )
         return response.json(), response.status_code
