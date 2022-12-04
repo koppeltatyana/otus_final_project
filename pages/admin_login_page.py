@@ -11,9 +11,12 @@ class AdminLoginPage(BasePage):
     path = '/#/admin'
 
     # -------------------------------------------------- Действия ---------------------------------------------------- #
+    @step('Закрыть приветственное сообщение при существовании такового')
     def close_welcome_msg(self):
-        self.find_element(Locators.LET_ME_HACK_BTN).click()
+        if self.is_element_present(Locators.LET_ME_HACK_BTN):
+            self.find_element(Locators.LET_ME_HACK_BTN).click()
 
+    @step('Ввести значение в поле ввода "Username"')
     def enter_value_into_login_field(self, value: str):
         """
         Ввод значения в поле ввода "Username"
@@ -22,6 +25,7 @@ class AdminLoginPage(BasePage):
         """
         self.fill_edit_field(locator=Locators.LOGIN_INPUT, value=value)
 
+    @step('Ввести значение в поле ввода "Password"')
     def enter_value_into_password_field(self, value: str):
         """
         Ввод значения в поле ввода "Password"
@@ -30,6 +34,7 @@ class AdminLoginPage(BasePage):
         """
         self.fill_edit_field(locator=Locators.PASSWORD_INPUT, value=value)
 
+    @step('Кликнуть по кнопке "Login"')
     def click_login_btn(self):
         """
         Клик по кнопке "Login"
@@ -44,9 +49,10 @@ class AdminLoginPage(BasePage):
         :param username: имя пользователя
         :param password: пароль пользователя
         """
-        self.enter_value_into_login_field(value=username)
-        self.enter_value_into_password_field(value=password)
-        self.click_login_btn()
+        if self.is_element_present(Locators.PAGE_TITLE, timeout=10):
+            self.enter_value_into_login_field(value=username)
+            self.enter_value_into_password_field(value=password)
+            self.click_login_btn()
 
     # -------------------------------------------------- Проверки ---------------------------------------------------- #
     @step('Проверить открытие страницы авторизации в админ-панель')
@@ -54,4 +60,4 @@ class AdminLoginPage(BasePage):
         """
         Проверка открытия страницы авторизации в админ-панель
         """
-        self.is_element_visible(Locators.PAGE_TITLE, timeout=10)
+        assert self.is_element_present(Locators.PAGE_TITLE, timeout=10)

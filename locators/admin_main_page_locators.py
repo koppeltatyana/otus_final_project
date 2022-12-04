@@ -25,6 +25,8 @@ class AdminMainPageLocators:
     ROOM_DETAILS = (By.XPATH, './/div[@class="col-sm-5"][1]/p')
     # Иконка удаления комнаты
     ROOM_DELETE_BTN = (By.XPATH, './/span[@class="fa fa-remove roomDelete"]')
+    # Иконка удаления комнаты по номеру комнаты
+    ROOM_DELETE_BTN_BY_ROOM_NUMBER = (By.XPATH, './/p[text()={0}]/../../div[@class="col-sm-1"][3]/span')
 
     # -------------------------------------------- БЛОК ДЛЯ СОЗДАНИЯ НОМЕРОВ ----------------------------------------- #
     # Поле ввода номера комнаты

@@ -22,6 +22,18 @@ class BasePage:
             )
             assert False, f'Не удалось открыть страницу {self.base_url + path}'
 
+    @allure.step('Обновить страницу')
+    def refresh_the_page(self):
+        try:
+            self.driver.refresh()
+        except Exception as ex:
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                'Screenshot',
+                attachment_type=allure.attachment_type.PNG,
+            )
+            assert False, f'Не удалось обновить страницу: '
+
     @allure.step('Найти элемент с локатором {locator}')
     def find_element(self, locator, timeout=10):
         """
@@ -64,46 +76,14 @@ class BasePage:
             )
             assert False, f'Элементы с локатором {locator} не были найдены.'
 
-    @allure.step('Найти элемент с локатором {child_locator} внутри элемента с локатором {parent_locator}')
-    def find_element_in_element(self, parent_element, child_locator: tuple):
-        """
-        Метод, возвращающий элемент по локатору child_locator в родительском элементе, найденному по локатору
-        parent_locator
-
-        :param parent_element: элемент-родитель
-        :param child_locator: локатор элемента-потомка
-        :return: элемент-потомок, найденный внутри элемента-родителя
-        """
+    def is_element_present(self, locator, timeout=10):
         try:
-            return parent_element.find_element(*child_locator)
-        except TimeoutException:
-            allure.attach(
-                self.driver.get_screenshot_as_png(),
-                'Screenshot',
-                attachment_type=allure.attachment_type.PNG,
-            )
-            assert False, f'Не удалось найти элемент с локатором {child_locator} внутри элемента {parent_element}'
-
-    @allure.step('Проверить, что элемент с локатором {locator} видим на странице')
-    def is_element_visible(self, locator, timeout=5):
-        """
-        Метод, возвращающий видимый элемент по локатору locator.
-
-        :param locator: локатор элемента
-        :param timeout: время ожидания элементов (default=5)
-        :return: видимый веб-элемент
-        """
-        try:
-            return WebDriverWait(self.driver, timeout).until(
-                method=EC.visibility_of_element_located(locator),
+            WebDriverWait(self.driver, timeout).until(
+                method=EC.presence_of_element_located(locator),
             )
         except TimeoutException:
-            allure.attach(
-                self.driver.get_screenshot_as_png(),
-                'Screenshot',
-                attachment_type=allure.attachment_type.PNG,
-            )
-            assert False, f'Элемент с локатором {locator} не виден на странице.'
+            return False
+        return True
 
     @allure.step('Проверить, что элемент с локатором {locator} кликабелен')
     def is_element_clickable(self, locator, timeout=5):
@@ -145,7 +125,7 @@ class BasePage:
                 'Screenshot',
                 attachment_type=allure.attachment_type.PNG,
             )
-            assert False, f'Во время ввода значения {value} в поле с локатором {locator} возникла ошибка: {ex}'
+            assert False, f'Во время ввода значения "{value}" в поле с локатором "{locator}" возникла ошибка: "{ex}"'
 
     @allure.step('Кликнуть по значению {value} в выпадающем списке, найденном по локатору {locator}')
     def click_select_by_text(self, locator, value):

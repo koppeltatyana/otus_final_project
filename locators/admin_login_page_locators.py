@@ -9,7 +9,7 @@ class AdminLoginPageLocators:
     # Кнопка "Let me hack"
     LET_ME_HACK_BTN = (By.XPATH, './/button[@class="btn btn-primary"]')
     # Заголовок страницы
-    PAGE_TITLE = (By.XPATH, './/h2[@data-testid="login-header"]')
+    PAGE_TITLE = (By.XPATH, './/h2[@data-testid="login-header" and text()="Log into your account"]')
     # Поле ввода логина
     LOGIN_INPUT = (By.XPATH, './/input[@data-testid="username"]')
     # Поле ввода пароя

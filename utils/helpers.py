@@ -1,7 +1,7 @@
 from json import load
 from os.path import join
 from pathlib import Path
-from random import choice, sample
+from random import choice, sample, randint
 import string
 
 from jsonschema.exceptions import ValidationError
@@ -148,4 +148,22 @@ def random_user_data() -> dict:
         'lastname': random_user_lastname(),
         'email': random_email(),
         'phone': random_phone(),
+    }
+
+
+def random_room_data(availability: bool = True) -> dict:
+    """
+    Сгенерировать данные для номера
+
+    :param availability: возможность бронирования номера
+    :return: рандомные данные номера в формате словаря
+    """
+
+    room_accessibility = 'true' if availability is True else 'false'
+    return {
+        'room_number': str(randint(150, 500)),
+        'room_type': choice(['Single', 'Twin', 'Double', 'Family', 'Suite']),
+        'room_accessibility': room_accessibility,
+        'room_price': str(randint(100, 1000)),
+        'room_details': sample(['WiFi', 'Refreshments', 'TV', 'Safe', 'Radio', 'Views'], randint(0, 6)),
     }
