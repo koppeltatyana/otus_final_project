@@ -1,6 +1,7 @@
 from random import choice
 from time import sleep
 
+import pytest
 from allure import suite, title
 
 from data.data import UI_ADMIN_USER
@@ -14,8 +15,15 @@ class TestAdminPanelAuth:
     """
 
     @title('Проверка добавления номера для бронирования в админке')
-    def test_admin_panel_room_adding(self, admin_login_page, admin_main_page, main_page):
-        room_info = random_room_data(availability=True)
+    @pytest.mark.parametrize('room_availability', [True, False])
+    def test_admin_panel_room_adding(
+        self, admin_login_page, admin_main_page, main_page, delete_room_after_test, room_availability,
+    ):
+        room_info = random_room_data(availability=room_availability)
+
+        # --------------------------- Сохранение номера комнаты, чтобы потом его удалить ----------------------------- #
+        delete_room_after_test(room_number=room_info['room_number'])
+        # ------------------------------------------------------------------------------------------------------------ #
 
         admin_login_page._open(path=admin_login_page.path)
         admin_login_page.close_welcome_msg()
@@ -70,18 +78,15 @@ class TestAdminPanelAuth:
             'Детали номера не соответствуют ожидаемым. ' \
             f'ОР: {sorted(room_info["room_details"])}. ФР: {sorted(added_room["room_details"])}.'
 
-        main_page._open()
+        main_page._open()  # перейти на главную страницу сайта
 
-        ui_room_list = main_page.get_main_page_room_list()
-        available_admin_room_list = list(filter(lambda x: x['room_accessibility'] == 'true', new_admin_room_list))
-        assert len(ui_room_list) == len(available_admin_room_list)
-        for i in range(len(ui_room_list)):
-            assert ui_room_list[i]['room_type'] == available_admin_room_list[i]['room_type']
-            assert ui_room_list[i]['room_details'] == available_admin_room_list[i]['room_details']
+        ui_room_list = main_page.get_main_page_room_list()  # получить список номеров с главной страницы сайта
+        assert len(ui_room_list) == len(new_admin_room_list)
 
     @title('Проверка добавления номера для бронирования в админке')
-    def test_admin_panel_room_deleting(self, admin_login_page, admin_main_page, add_room, main_page):
-        added_room = add_room(room_availability=True)
+    @pytest.mark.parametrize('room_availability', [True, False])
+    def test_admin_panel_room_deleting(self, admin_login_page, admin_main_page, add_room, main_page, room_availability):
+        added_room = add_room(room_availability=room_availability)
 
         admin_main_page._open(path=admin_main_page.path)
         admin_login_page.admin_panel_login(
@@ -89,8 +94,7 @@ class TestAdminPanelAuth:
             password=UI_ADMIN_USER['password'],
         )
         admin_main_page.assert_open_admin_main_page()  # проверить открытие главной страницы админ-панели
-        old_available_admin_room_list = list(
-            filter(lambda x: x['room_accessibility'] == 'true', admin_main_page.get_available_room_list()))
+        old_available_admin_room_list = admin_main_page.get_available_room_list()
 
         admin_main_page.click_delete_btn_by_room_number(room_number=added_room['room_number'])
         try:
@@ -100,17 +104,23 @@ class TestAdminPanelAuth:
         except Exception:
             sleep(1)
 
-        main_page._open()
+        main_page._open()  # перейти на главную страницу сайта
 
-        ui_room_list = main_page.get_main_page_room_list()
+        ui_room_list = main_page.get_main_page_room_list()  # получить список номеров с главной страницы сайта
         assert len(ui_room_list) < len(old_available_admin_room_list)
 
     @title('Редактирование информации по номеру')
+    @pytest.mark.parametrize('room_availability', [True, False])
     def test_admin_panel_room_editing(
-            self, admin_login_page, admin_main_page, admin_room_details_page, add_room, main_page,
+        self, admin_login_page, admin_main_page, admin_room_details_page, add_room, main_page,
+        room_availability, delete_room_after_test,
     ):
-        added_room = add_room(room_availability=True)
+        added_room = add_room(room_availability=room_availability)
         room_new_info = random_room_data(availability=choice([True, False]))
+
+        # --------------------------- Сохранение номера комнаты, чтобы потом его удалить ----------------------------- #
+        delete_room_after_test(room_number=room_new_info['room_number'])
+        # ------------------------------------------------------------------------------------------------------------ #
 
         admin_main_page._open(path=admin_main_page.path)
         admin_login_page.admin_panel_login(

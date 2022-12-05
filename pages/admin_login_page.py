@@ -49,7 +49,7 @@ class AdminLoginPage(BasePage):
         :param username: имя пользователя
         :param password: пароль пользователя
         """
-        if self.is_element_present(Locators.PAGE_TITLE, timeout=10):
+        if self.is_element_present(Locators.PAGE_TITLE, timeout=5):
             self.enter_value_into_login_field(value=username)
             self.enter_value_into_password_field(value=password)
             self.click_login_btn()

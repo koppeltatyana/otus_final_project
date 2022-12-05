@@ -19,23 +19,26 @@ class AdminMainPage(BasePage):
         :return: список номеров в формате словаря
         """
         room_list = []
-        room_items = self.find_elements(Locators.ROOM_ITEM)
-        for room_item in room_items:
-            room_number = room_item.find_element(*Locators.ROOM_NUMBER).text
-            room_type = room_item.find_element(*Locators.ROOM_TYPE).text
-            room_accessibility = room_item.find_element(*Locators.ROOM_ACCESSIBLE).text
-            room_price = room_item.find_element(*Locators.ROOM_PRICE).text
-            room_details = room_item.find_element(*Locators.ROOM_DETAILS).text.split(', ')
-            room_list += [
-                {
-                    'room_number': room_number,
-                    'room_type': room_type,
-                    'room_accessibility': room_accessibility,
-                    'room_price': room_price,
-                    'room_details': room_details,
-                }
-            ]
-        return room_list
+        try:
+            room_items = self.find_elements(Locators.ROOM_ITEM, timeout=5)
+            for room_item in room_items:
+                room_number = room_item.find_element(*Locators.ROOM_NUMBER).text
+                room_type = room_item.find_element(*Locators.ROOM_TYPE).text
+                room_accessibility = room_item.find_element(*Locators.ROOM_ACCESSIBLE).text
+                room_price = room_item.find_element(*Locators.ROOM_PRICE).text
+                room_details = room_item.find_element(*Locators.ROOM_DETAILS).text.split(', ')
+                room_list += [
+                    {
+                        'room_number': room_number,
+                        'room_type': room_type,
+                        'room_accessibility': room_accessibility,
+                        'room_price': room_price,
+                        'room_details': room_details,
+                    }
+                ]
+            return room_list
+        except Exception:
+            return []
 
     @step('Кликнуть по номеру комнаты "{room_number}" для редактирования')
     def click_room_by_room_number(self, room_number: str):

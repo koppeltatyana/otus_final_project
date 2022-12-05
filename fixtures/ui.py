@@ -72,3 +72,39 @@ def add_room(admin_login_page, admin_main_page):
         return room_info
 
     return wrapper
+
+
+room_for_deleting = {}
+
+
+@fixture(scope='function')
+def delete_room_after_test(admin_login_page, admin_main_page):
+    """ Фикстура для удаления номера после теста """
+
+    global room_for_deleting
+
+    def wrapper(room_number: str):
+        room_for_deleting['room_number'] = room_number
+        return room_for_deleting
+
+    yield wrapper
+
+    admin_login_page._open(path=admin_login_page.path)
+    admin_login_page.close_welcome_msg()
+
+    admin_login_page.admin_panel_login(
+        username=UI_ADMIN_USER['username'],
+        password=UI_ADMIN_USER['password'],
+    )  # авторизация в админ-панель
+    admin_main_page.assert_open_admin_main_page()  # проверить открытие главной страницы админ-панели
+
+    old_room_list = admin_main_page.get_available_room_list()
+
+    admin_main_page.click_delete_btn_by_room_number(room_number=room_for_deleting['room_number'])
+    for _ in range(5):
+        actual_room_list = admin_main_page.get_available_room_list()
+        if len(actual_room_list) < len(old_room_list):
+            break
+        sleep(1)
+    admin_main_page.click_logout_btn()
+
