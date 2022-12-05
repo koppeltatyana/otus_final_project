@@ -11,11 +11,6 @@ class AdminLoginPage(BasePage):
     path = '/#/admin'
 
     # -------------------------------------------------- Действия ---------------------------------------------------- #
-    @step('Закрыть приветственное сообщение при существовании такового')
-    def close_welcome_msg(self):
-        if self.is_element_present(Locators.LET_ME_HACK_BTN):
-            self.find_element(Locators.LET_ME_HACK_BTN).click()
-
     @step('Ввести значение в поле ввода "Username"')
     def enter_value_into_login_field(self, value: str):
         """
@@ -49,7 +44,7 @@ class AdminLoginPage(BasePage):
         :param username: имя пользователя
         :param password: пароль пользователя
         """
-        if self.is_element_present(Locators.PAGE_TITLE, timeout=5):
+        if self.is_element_present(Locators.PAGE_TITLE, timeout=3):
             self.enter_value_into_login_field(value=username)
             self.enter_value_into_password_field(value=password)
             self.click_login_btn()

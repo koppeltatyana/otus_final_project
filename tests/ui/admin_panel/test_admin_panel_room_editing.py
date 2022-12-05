@@ -149,6 +149,7 @@ class TestAdminPanelAuth:
         admin_room_details_page.click_update_btn()
 
         admin_main_page.click_rooms_btn()
+        sleep(1)
         actual_room_info = choice(
             [
                 x for x in admin_main_page.get_available_room_list()

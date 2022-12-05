@@ -33,3 +33,6 @@ class MainPageLocators:
     FEEDBACK_MESSAGE_INPUT = (By.XPATH, './/textarea[@data-testid="ContactDescription"]')
     # Кнопка "Submit"
     FEEDBACK_SUBMIT_BTN = (By.ID, 'submitContact')
+
+    # Карта
+    MAP = (By.XPATH, './/div[@class="pigeon-overlays"]')

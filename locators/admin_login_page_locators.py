@@ -6,8 +6,6 @@ class AdminLoginPageLocators:
     Класс для хранения локаторов страницы авторизации в админ-панель
     """
 
-    # Кнопка "Let me hack"
-    LET_ME_HACK_BTN = (By.XPATH, './/button[@class="btn btn-primary"]')
     # Заголовок страницы
     PAGE_TITLE = (By.XPATH, './/h2[@data-testid="login-header" and text()="Log into your account"]')
     # Поле ввода логина

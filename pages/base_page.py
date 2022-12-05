@@ -1,5 +1,6 @@
 import allure
 from selenium.common import TimeoutException
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
@@ -21,6 +22,11 @@ class BasePage:
                 attachment_type=allure.attachment_type.PNG,
             )
             assert False, f'Не удалось открыть страницу {self.base_url + path}'
+
+    @allure.step('Закрыть приветственное сообщение при существовании такового')
+    def close_welcome_msg(self):
+        if self.is_element_present((By.XPATH, './/button[@class="btn btn-primary"]')):
+            self.find_element((By.XPATH, './/button[@class="btn btn-primary"]')).click()
 
     @allure.step('Обновить страницу')
     def refresh_the_page(self):
