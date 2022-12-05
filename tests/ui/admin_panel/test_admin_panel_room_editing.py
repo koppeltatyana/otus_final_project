@@ -14,7 +14,7 @@ class TestAdminPanelAuth:
     """
 
     @title('Проверка добавления номера для бронирования в админке')
-    def test_admin_panel_room_adding(self, admin_login_page, admin_main_page):
+    def test_admin_panel_room_adding(self, admin_login_page, admin_main_page, main_page):
         room_info = random_room_data(availability=True)
 
         admin_login_page._open(path=admin_login_page.path)
@@ -27,7 +27,7 @@ class TestAdminPanelAuth:
         )  # авторизация в админ-панель
         admin_main_page.assert_open_admin_main_page()  # проверить открытие главной страницы админ-панели
 
-        old_room_list = admin_main_page.get_available_room_list()
+        old_admin_room_list = admin_main_page.get_available_room_list()
         admin_main_page.enter_value_into_text_field(
             field_name='room_number',
             value=room_info['room_number'],
@@ -44,12 +44,12 @@ class TestAdminPanelAuth:
 
         for _ in range(5):
             actual_room_list = admin_main_page.get_available_room_list()
-            if len(actual_room_list) > len(old_room_list):
+            if len(actual_room_list) > len(old_admin_room_list):
                 break
             sleep(1)
 
-        assert room_info['room_number'] in [x['room_number'] for x in admin_main_page.get_available_room_list()], \
-            'Номер не был добавлен'
+        new_admin_room_list = admin_main_page.get_available_room_list()
+        assert room_info['room_number'] in [x['room_number'] for x in new_admin_room_list], 'Номер не был добавлен'
 
         added_room = choice(
             [
@@ -70,10 +70,17 @@ class TestAdminPanelAuth:
             'Детали номера не соответствуют ожидаемым. ' \
             f'ОР: {sorted(room_info["room_details"])}. ФР: {sorted(added_room["room_details"])}.'
 
-        # todo: добавить проверку на главной странице
+        main_page._open()
+
+        ui_room_list = main_page.get_main_page_room_list()
+        available_admin_room_list = list(filter(lambda x: x['room_accessibility'] == 'true', new_admin_room_list))
+        assert len(ui_room_list) == len(available_admin_room_list)
+        for i in range(len(ui_room_list)):
+            assert ui_room_list[i]['room_type'] == available_admin_room_list[i]['room_type']
+            assert ui_room_list[i]['room_details'] == available_admin_room_list[i]['room_details']
 
     @title('Проверка добавления номера для бронирования в админке')
-    def test_admin_panel_room_deleting(self, admin_login_page, admin_main_page, add_room):
+    def test_admin_panel_room_deleting(self, admin_login_page, admin_main_page, add_room, main_page):
         added_room = add_room(room_availability=True)
 
         admin_main_page._open(path=admin_main_page.path)
@@ -82,6 +89,8 @@ class TestAdminPanelAuth:
             password=UI_ADMIN_USER['password'],
         )
         admin_main_page.assert_open_admin_main_page()  # проверить открытие главной страницы админ-панели
+        old_available_admin_room_list = list(
+            filter(lambda x: x['room_accessibility'] == 'true', admin_main_page.get_available_room_list()))
 
         admin_main_page.click_delete_btn_by_room_number(room_number=added_room['room_number'])
         try:
@@ -90,10 +99,16 @@ class TestAdminPanelAuth:
                 f'Комната "{added_room["room_number"]}" не была удалена.'
         except Exception:
             sleep(1)
-        # todo: добавить проверку на главной странице
+
+        main_page._open()
+
+        ui_room_list = main_page.get_main_page_room_list()
+        assert len(ui_room_list) < len(old_available_admin_room_list)
 
     @title('Редактирование информации по номеру')
-    def test_admin_panel_room_editing(self, admin_login_page, admin_main_page, admin_room_details_page, add_room):
+    def test_admin_panel_room_editing(
+            self, admin_login_page, admin_main_page, admin_room_details_page, add_room, main_page,
+    ):
         added_room = add_room(room_availability=True)
         room_new_info = random_room_data(availability=choice([True, False]))
 
@@ -139,4 +154,8 @@ class TestAdminPanelAuth:
         assert actual_room_info['room_price'] == room_new_info['room_price'], \
             f'Стоимость номера не соответствует ожидаемой. ' \
             f'ОР: {room_new_info["room_price"]}. ФР: {actual_room_info["room_price"]}.'
-        # todo: добавить проверку на главной странице
+
+        main_page._open()
+
+        ui_room_list = main_page.get_main_page_room_list()
+        assert room_new_info['room_description'] in [x['room_description'] for x in ui_room_list]
