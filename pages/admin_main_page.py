@@ -6,7 +6,7 @@ from pages.base_page import BasePage
 
 class AdminMainPage(BasePage):
     """
-    Класс для хранения методов главной странице админ-панели
+    Класс для хранения методов главной страницы админ-панели
     """
 
     path = '/#/admin'
@@ -37,10 +37,35 @@ class AdminMainPage(BasePage):
             ]
         return room_list
 
+    @step('Кликнуть по номеру комнаты "{room_number}" для редактирования')
+    def click_room_by_room_number(self, room_number: str):
+        """
+        Клик по номеру комнаты для редактирования
+
+        :param room_number: номер редактируемой комнаты
+        """
+        strategy, locator = Locators.ROOM_ITEM_BY_NUMBER
+        self.find_element((strategy, locator.format(room_number))).click()
+
     @step('Кликнуть по кнопке "Logout"')
     def click_logout_btn(self):
         """ Клик по кнопке 'Logout' """
-        self.find_element(Locators.LOGOUT_BTN).click()
+        self.find_element(Locators.LOGOUT_HEADER_BTN).click()
+
+    @step('Кликнуть по кнопке "Rooms"')
+    def click_rooms_btn(self):
+        """ Клик по кнопке 'Rooms' """
+        self.find_element(Locators.ROOMS_HEADER_BTN).click()
+
+    @step('Кликнуть по кнопке "Report"')
+    def click_report_btn(self):
+        """ Клик по кнопке 'Report' """
+        self.find_element(Locators.REPORT_HEADER_BTN).click()
+
+    @step('Кликнуть по кнопке "Front Page"')
+    def click_front_page_btn(self):
+        """ Клик по кнопке 'Front Page' """
+        self.find_element(Locators.FRONT_PAGE_HEADER_BTN).click()
 
     @step('Ввести значение "{value}" в поле ввода "{field_name}"')
     def enter_value_into_text_field(self, field_name: str, value: str):
@@ -118,4 +143,4 @@ class AdminMainPage(BasePage):
         """
         Проверка открытия главной страницы админ-панели
         """
-        self.find_element(Locators.LOGOUT_BTN)
+        self.find_element(Locators.LOGOUT_HEADER_BTN)

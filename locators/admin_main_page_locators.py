@@ -3,16 +3,26 @@ from selenium.webdriver.common.by import By
 
 class AdminMainPageLocators:
     """
-    Класс для хранения локаторов главной странице админ-панели
+    Класс для хранения локаторов главной страницы админ-панели
     """
 
     # -------------------------------------------------- БЛОК ХЕДЕРА ------------------------------------------------- #
+    # Кнопка "Rooms"
+    ROOMS_HEADER_BTN = (By.XPATH, './/a[text()="Rooms"]')
+    # Кнопка "Report"
+    REPORT_HEADER_BTN = (By.XPATH, './/a[text()="Report"]')
+    # Кнопка "Branding"
+    BRANDING_HEADER_BTN = (By.XPATH, './/a[text()="Branding"]')
+    # Кнопка "Front Page"
+    FRONT_PAGE_HEADER_BTN = (By.XPATH, './/a[text()="Front Page"]')
     # Кнопка "Logout"
-    LOGOUT_BTN = (By.XPATH, './/li/a[@class="nav-link" and text()="Logout"]')
+    LOGOUT_HEADER_BTN = (By.XPATH, './/li/a[@class="nav-link" and text()="Logout"]')
 
     # -------------------------------------------- БЛОК СУЩЕСТВУЮЩИХ НОМЕРОВ ----------------------------------------- #
     # Элемент с информацией по номеру
     ROOM_ITEM = (By.XPATH, './/div[@data-testid="roomlisting"]')
+    # Элемент с информацией по комнате по ее номеру
+    ROOM_ITEM_BY_NUMBER = (By.XPATH, './/div[@class="col-sm-1"][1]/p[text()="{0}"]/../..')
     # Поле с номером комнаты
     ROOM_NUMBER = (By.XPATH, './/div[@class="col-sm-1"][1]/p')
     # Поле с типом комнаты

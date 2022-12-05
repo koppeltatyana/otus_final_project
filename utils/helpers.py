@@ -166,4 +166,12 @@ def random_room_data(availability: bool = True) -> dict:
         'room_accessibility': room_accessibility,
         'room_price': str(randint(100, 1000)),
         'room_details': sample(['WiFi', 'Refreshments', 'TV', 'Safe', 'Radio', 'Views'], randint(0, 6)),
+        'room_description': random_string(char_num=50),
+        'room_image': choice(
+            [
+                'https://www.mwtestconsultancy.co.uk/img/testim/room2.jpg',
+                'https://www.mwtestconsultancy.co.uk/img/testim/room2.jpg',
+                'https://miro.medium.com/max/1400/1*-Vt3v_GlyEtTCiGtQpbHww.png',
+            ]
+        )
     }

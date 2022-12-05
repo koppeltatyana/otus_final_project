@@ -3,7 +3,7 @@ from time import sleep
 from _pytest.fixtures import fixture
 
 from data.data import UI_ADMIN_USER
-from pages import MainPage, AdminMainPage, AdminLoginPage
+from pages import MainPage, AdminMainPage, AdminLoginPage, AdminReportPage, AdminRoomDetailsPage
 from utils.helpers import random_room_data
 
 
@@ -15,6 +15,16 @@ def admin_login_page(browser):
 @fixture(scope='function')
 def admin_main_page(browser):
     return AdminMainPage(browser)
+
+
+@fixture(scope='function')
+def admin_report_page(browser):
+    return AdminReportPage(browser)
+
+
+@fixture(scope='function')
+def admin_room_details_page(browser):
+    return AdminRoomDetailsPage(browser)
 
 
 @fixture(scope='function')

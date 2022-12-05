@@ -70,6 +70,8 @@ class TestAdminPanelAuth:
             'Детали номера не соответствуют ожидаемым. ' \
             f'ОР: {sorted(room_info["room_details"])}. ФР: {sorted(added_room["room_details"])}.'
 
+        # todo: добавить проверку на главной странице
+
     @title('Проверка добавления номера для бронирования в админке')
     def test_admin_panel_room_deleting(self, admin_login_page, admin_main_page, add_room):
         added_room = add_room(room_availability=True)
@@ -88,3 +90,53 @@ class TestAdminPanelAuth:
                 f'Комната "{added_room["room_number"]}" не была удалена.'
         except Exception:
             sleep(1)
+        # todo: добавить проверку на главной странице
+
+    @title('Редактирование информации по номеру')
+    def test_admin_panel_room_editing(self, admin_login_page, admin_main_page, admin_room_details_page, add_room):
+        added_room = add_room(room_availability=True)
+        room_new_info = random_room_data(availability=choice([True, False]))
+
+        admin_main_page._open(path=admin_main_page.path)
+        admin_login_page.admin_panel_login(
+            username=UI_ADMIN_USER['username'],
+            password=UI_ADMIN_USER['password'],
+        )
+        admin_main_page.assert_open_admin_main_page()  # проверить открытие главной страницы админ-панели
+        admin_main_page.click_room_by_room_number(room_number=added_room['room_number'])
+
+        admin_room_details_page.assert_open_room_details_page(room_number=added_room['room_number'])
+        admin_room_details_page.click_edit_btn()
+
+        admin_room_details_page.enter_value_into_text_field(
+            field_name='room_number', value=room_new_info['room_number'])
+        admin_room_details_page.select_value_in_dropdown(field_name='room_type', value=room_new_info['room_type'])
+        admin_room_details_page.select_value_in_dropdown(
+            field_name='room_accessibility', value=room_new_info['room_accessibility'])
+        admin_room_details_page.enter_value_into_text_field(
+            field_name='room_price', value=room_new_info['room_price'])
+        for room_detail in room_new_info['room_details']:
+            admin_room_details_page.click_checkbox_by_name(checkbox_name=room_detail)
+        admin_room_details_page.enter_value_into_text_field(
+            field_name='room_description', value=room_new_info['room_description'])
+        admin_room_details_page.enter_value_into_text_field(
+            field_name='room_image', value=room_new_info['room_image'])
+        admin_room_details_page.click_update_btn()
+
+        admin_main_page.click_rooms_btn()
+        actual_room_info = choice(
+            [
+                x for x in admin_main_page.get_available_room_list()
+                if x['room_number'] == room_new_info['room_number']
+            ]
+        )
+        assert actual_room_info['room_type'] == room_new_info['room_type'], \
+            f'Тип номера не соответствует ожидаемому. ' \
+            f'ОР: {room_new_info["room_type"]}. ФР: {actual_room_info["room_type"]}'
+        assert actual_room_info['room_accessibility'] == room_new_info['room_accessibility'], \
+            f'Возможность бронирования номера не соответствует ожидаемому. ' \
+            f'ОР: {room_new_info["room_accessibility"]}. ФР: {actual_room_info["room_accessibility"]}.'
+        assert actual_room_info['room_price'] == room_new_info['room_price'], \
+            f'Стоимость номера не соответствует ожидаемой. ' \
+            f'ОР: {room_new_info["room_price"]}. ФР: {actual_room_info["room_price"]}.'
+        # todo: добавить проверку на главной странице
