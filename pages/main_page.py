@@ -101,6 +101,28 @@ class MainPage(BasePage):
         """ Проверка отображения заголовка "Rooms" на главной странице """
         assert self.is_element_present(Locators.TITLE), 'Главная страница не была открыта'
 
+    @step('Проверить контактную информацию на сайте')
+    def assert_contact_info(
+        self, expected_name: str = None, expected_address: str = None, expected_phone: str = None,
+        expected_email: str = None,
+    ):
+        if expected_name is not None:
+            actual_name = self.find_element(Locators.CONTACT_NAME).text
+            assert actual_name == expected_name, \
+                f'Контактное имя не соответствует ожидаемому. ОР: {expected_name}. ОР: {actual_name}'
+        if expected_address is not None:
+            actual_address = self.find_element(Locators.CONTACT_ADDRESS).text
+            assert actual_address == expected_address, \
+                f'Контактный адрес не соответствует ожидаемому. ОР: {expected_address}. ОР: {actual_address}'
+        if expected_phone is not None:
+            actual_phone = self.find_element(Locators.CONTACT_PHONE).text
+            assert actual_phone == expected_phone, \
+                f'Контактный номер телефона не соответствует ожидаемому. ОР: {expected_phone}. ОР: {actual_phone}'
+        if expected_email is not None:
+            actual_email = self.find_element(Locators.CONTACT_EMAIL).text
+            assert actual_email == expected_email, \
+                    f'Контактная эл. почта не соответствует ожидаемому. ОР: {expected_email}. ОР: {actual_email}'
+
     @step('Проверить соответствие фактического описания и ожидаемого')
     def assert_site_description(self, expected_desc: str):
         """ Проверка соответствия фактического описания и ожидаемого """

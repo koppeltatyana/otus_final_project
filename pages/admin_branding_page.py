@@ -23,18 +23,22 @@ class AdminBrandingPage(BasePage):
         :param field_name: наименование поля ввода
         :param value: вводимое значение
         """
+        action = ActionChains(self.driver)
         if field_name == 'description':
-            action = ActionChains(self.driver)
             action.click(on_element=self.find_element(Locators.DESC_INPUT)).pause(1).\
                 double_click().pause(1).send_keys(value).pause(1).perform()
         elif field_name == 'contact_name':
-            self.fill_edit_field(locator=Locators.CONTACT_NAME_INPUT, value=value)
+            action.click(on_element=self.find_element(Locators.CONTACT_NAME_INPUT)).pause(0.5). \
+                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
         elif field_name == 'contact_address':
-            self.fill_edit_field(locator=Locators.CONTACT_ADDRESS_INPUT, value=value)
+            action.click(on_element=self.find_element(Locators.CONTACT_ADDRESS_INPUT)).pause(0.5). \
+                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
         elif field_name == 'contact_phone':
-            self.fill_edit_field(locator=Locators.CONTACT_PHONE_INPUT, value=value)
+            action.click(on_element=self.find_element(Locators.CONTACT_PHONE_INPUT)).pause(0.5). \
+                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
         elif field_name == 'contact_email':
-            self.fill_edit_field(locator=Locators.CONTACT_EMAIL_INPUT, value=value)
+            action.click(on_element=self.find_element(Locators.CONTACT_EMAIL_INPUT)).pause(0.5). \
+                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
         else:
             raise AssertionError(f'На странице нет поля ввода "{field_name}"')
 

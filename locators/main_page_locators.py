@@ -61,5 +61,14 @@ class MainPageLocators:
     # Кнопка "Submit"
     FEEDBACK_SUBMIT_BTN = (By.ID, 'submitContact')
 
+    # Контактное имя
+    CONTACT_NAME = (By.XPATH, './/div[@class="col-sm-5"]/p[1]')
+    # Контактный адрес
+    CONTACT_ADDRESS = (By.XPATH, './/div[@class="col-sm-5"]/p[2]')
+    # Контактное имя
+    CONTACT_PHONE = (By.XPATH, './/div[@class="col-sm-5"]/p[3]')
+    # Контактное имя
+    CONTACT_EMAIL = (By.XPATH, './/div[@class="col-sm-5"]/p[4]')
+
     # Карта
     MAP = (By.XPATH, './/div[@class="pigeon-overlays"]')
