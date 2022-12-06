@@ -79,6 +79,7 @@ class AdminRoomDetailsPage(BasePage):
         else:
             raise AssertionError(f'В админке отсутствует чекбокс "{checkbox_name}"')
 
+    @step('Получить список бронирований со страницы')
     def get_reservation_list(self):
         """
         Получение списка бронирований
@@ -89,7 +90,7 @@ class AdminRoomDetailsPage(BasePage):
         booking_list = []
         try:
             strategy, locator = Locators.BOOKING_ITEM
-            booking_items = self.find_elements((strategy, locator.format(room_id)))
+            booking_items = self.find_elements((strategy, locator.format(room_id)), timeout=5)
         except Exception:
             return []
 
@@ -111,6 +112,16 @@ class AdminRoomDetailsPage(BasePage):
                 }
             ]
         return booking_list
+
+    @step('Кликнуть по кнопке удаления бронирования по имени пользователя, забронировавшего его')
+    def click_delete_btn_by_firstname(self, firstname: str):
+        """
+        Клик по кнопке удаления бронирования по имени пользователя
+
+        :param firstname: имя пользователя
+        """
+        strategy, locator = Locators.BOOKING_DELETE_BTN_BY_FIRSTNAME
+        self.find_element((strategy, locator.format(firstname))).click()
 
     # -------------------------------------------------- Проверки ---------------------------------------------------- #
     @step('Проверить открытие страницы деталей номера "{room_number}"')

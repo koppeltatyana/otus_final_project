@@ -118,8 +118,8 @@ def add_main_page_booking(add_room, main_page):
     # тестовые данные
     room_info = add_room(room_availability=True)  # создание нового номера без бронирований
     user_data = random_user_data()  # получение данных пользователя
-    checkin = (datetime.datetime.today() + datetime.timedelta(days=7)).day  # дата заезда
-    checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(8, 9))).day  # дата выезда
+    checkin = (datetime.datetime.today() + datetime.timedelta(days=randint(1, 2))).day  # дата заезда
+    checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(3, 9))).day  # дата выезда
     user_data['checkin'] = checkin
     user_data['checkout'] = checkout
 

@@ -65,7 +65,6 @@ def browser(request):
         options = webdriver.EdgeOptions()
 
     if is_remote:
-        # capabilities = {}
         capabilities = {
             'browserName': browser_name,
             'version': '107.0',

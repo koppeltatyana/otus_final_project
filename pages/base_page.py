@@ -1,5 +1,6 @@
 import allure
 from selenium.common import TimeoutException
+from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -39,6 +40,20 @@ class BasePage:
                 attachment_type=allure.attachment_type.PNG,
             )
             assert False, f'Не удалось обновить страницу: '
+
+    def hover(self, locator=None, web_element=None):
+        """
+        Ховер на элемент.
+        :param locator: локатор элемента.
+        :param web_element: если не None, то принимает на вход не локаторы, а веб-элемент из этого параметра
+        """
+        if web_element is not None:
+            hover = ActionChains(self.driver).move_to_element(web_element)
+        else:
+            hover = ActionChains(self.driver).move_to_element(
+                self.find_element(locator),
+            )
+        hover.perform()
 
     @allure.step('Найти элемент с локатором {locator}')
     def find_element(self, locator, timeout=10):

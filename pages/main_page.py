@@ -58,6 +58,7 @@ class MainPage(BasePage):
         if checkin < 1 or checkout < 1:
             raise AssertionError('Выберите корректные даты')
 
+        self.hover(locator=Locators.CALENDAR_ITEM)
         checkin = str(checkin) if checkin > 9 else '0' + str(checkin)
         checkout = str(checkout) if checkout > 9 else '0' + str(checkout)
         print(checkin, checkout)
