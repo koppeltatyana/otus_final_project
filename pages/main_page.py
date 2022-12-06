@@ -101,6 +101,13 @@ class MainPage(BasePage):
         """ Проверка отображения заголовка "Rooms" на главной странице """
         assert self.is_element_present(Locators.TITLE), 'Главная страница не была открыта'
 
+    @step('Проверить соответствие фактического описания и ожидаемого')
+    def assert_site_description(self, expected_desc: str):
+        """ Проверка соответствия фактического описания и ожидаемого """
+        actual_desc = self.find_element(Locators.DESCRIPTION).text
+        assert actual_desc == expected_desc, 'Актуальное описание не соответствует ожидаемому. ' \
+                                             f'ОР: {expected_desc}. ФР: {actual_desc}'
+
     @step('Проверить отображение сообщения об ошибки')
     def assert_error_msg(self):
         """

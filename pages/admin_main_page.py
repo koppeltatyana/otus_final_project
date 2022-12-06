@@ -66,6 +66,11 @@ class AdminMainPage(BasePage):
         """ Клик по кнопке 'Report' """
         self.find_element(Locators.REPORT_HEADER_BTN).click()
 
+    @step('Кликнуть по кнопке "Branding"')
+    def click_branding_btn(self):
+        """ Клик по кнопке 'Branding' """
+        self.find_element(Locators.BRANDING_HEADER_BTN).click()
+
     @step('Кликнуть по кнопке "Front Page"')
     def click_front_page_btn(self):
         """ Клик по кнопке 'Front Page' """

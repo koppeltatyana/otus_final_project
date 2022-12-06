@@ -1,3 +1,4 @@
+from .admin_branding_page_locators import AdminBrandingPageLocators
 from .admin_login_page_locators import AdminLoginPageLocators
 from .admin_main_page_locators import AdminMainPageLocators
 from .admin_report_page_locators import AdminReportPageLocators

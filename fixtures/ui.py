@@ -5,8 +5,13 @@ from time import sleep
 from _pytest.fixtures import fixture
 
 from data.data import UI_ADMIN_USER
-from pages import MainPage, AdminMainPage, AdminLoginPage, AdminReportPage, AdminRoomDetailsPage
+from pages import MainPage, AdminMainPage, AdminLoginPage, AdminReportPage, AdminRoomDetailsPage, AdminBrandingPage
 from utils.helpers import random_room_data, random_user_data
+
+
+@fixture(scope='function')
+def admin_branding_page(browser):
+    return AdminBrandingPage(browser)
 
 
 @fixture(scope='function')
