@@ -26,7 +26,7 @@ class AdminBrandingPage(BasePage):
         action = ActionChains(self.driver)
         if field_name == 'description':
             action.click(on_element=self.find_element(Locators.DESC_INPUT)).pause(1).\
-                double_click().pause(1).send_keys(value).pause(1).perform()
+                double_click().double_click().pause(0.5).send_keys(value).pause(1).perform()
         elif field_name == 'contact_name':
             action.click(on_element=self.find_element(Locators.CONTACT_NAME_INPUT)).pause(0.5). \
                 double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
