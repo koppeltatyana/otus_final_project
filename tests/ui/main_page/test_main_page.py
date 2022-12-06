@@ -54,7 +54,7 @@ class TestMainPage:
         main_page.click_close_successful_modal_window()  # закрыть модальное окно после успешного бронирования
 
     @title('Невозможность бронирования на недоступные даты')
-    def test_impossible_booking(self, add_main_page_booking, main_page):
+    def test_impossible_booking(self, main_page, add_main_page_booking, delete_room_after_test):
         # тестовые данные
         room_info, user_booking_info = add_main_page_booking
 
@@ -63,6 +63,10 @@ class TestMainPage:
         checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(8, 9))).day  # дата выезда
         user_data['checkin'] = checkin
         user_data['checkout'] = checkout
+
+        # --------------------------- Сохранение номера комнаты, чтобы потом его удалить ----------------------------- #
+        delete_room_after_test(room_number=room_info['room_number'])
+        # ------------------------------------------------------------------------------------------------------------ #
 
         main_page._open()
         main_page.close_welcome_msg()
