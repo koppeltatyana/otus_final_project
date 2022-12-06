@@ -25,7 +25,6 @@ class MainPageLocators:
     CALENDAR_ITEM = (By.XPATH, './/div[@class="rbc-month-view"]')
     # Кнопка с числом на календаре
     CALENDAR_DAY_BTN = (By.XPATH, './/button[text()="{0}"]')
-    CALENDAR_DAY_OFF_BTN = (By.XPATH, './/button[text()="{0}"]')
     # Поле ввода имени при бронировании
     BOOKING_FIRSTNAME_INPUT = (By.XPATH, './/input[@class="form-control room-firstname"]')
     # Поле ввода фамилии при бронировании
