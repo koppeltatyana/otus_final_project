@@ -82,12 +82,18 @@ class BasePage:
             )
             assert False, f'Элементы с локатором {locator} не были найдены.'
 
+    @allure.step('Найти список элементов с локатором {locator}')
     def is_element_present(self, locator, timeout=10):
         try:
             WebDriverWait(self.driver, timeout).until(
                 method=EC.presence_of_element_located(locator),
             )
         except TimeoutException:
+            allure.attach(
+                self.driver.get_screenshot_as_png(),
+                'Screenshot',
+                attachment_type=allure.attachment_type.PNG,
+            )
             return False
         return True
 
