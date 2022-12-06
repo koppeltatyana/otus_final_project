@@ -100,6 +100,17 @@ class MainPage(BasePage):
         """ Проверка отображения заголовка "Rooms" на главной странице """
         assert self.is_element_present(Locators.TITLE), 'Главная страница не была открыта'
 
+    @step('Проверить отображение сообщения об ошибки')
+    def assert_error_msg(self):
+        """
+        Проверка отображения сообщения 'The room dates are either invalid or are already booked for
+        one or more of the dates that you have selected.'
+        """
+        exp_res = 'The room dates are either invalid or are already booked for one or more of the dates that you ' \
+                  'have selected.'
+        msg = self.find_element(Locators.ERROR_MSG).text
+        assert msg == exp_res, f'Сообщение об ошибке не соответствует ожидаемому. ОР: "{exp_res}". ФР: "{msg}"'
+
     @step('Проверить отображения "Календаря" при клике на кнопку "Booking this room"')
     def assert_calendar(self):
         """ Проверка отображения "Календаря" при клике на кнопку "Booking this room" """

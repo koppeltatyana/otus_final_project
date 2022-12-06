@@ -36,6 +36,8 @@ class MainPageLocators:
     BOOKING_PHONE_INPUT = (By.XPATH, './/input[@class="form-control room-phone"]')
     # Кнопка "Book" при бронировании
     BOOK_BTN = (By.XPATH, './/button[@class="btn btn-outline-primary float-right book-room"]')
+    # Сообщение при невозможности бронирования
+    ERROR_MSG = (By.XPATH, './/div[@class="alert alert-danger"]')
 
     # ------------------------------------ МОДАЛЬНОЕ ОКНО УСПЕШНОГО БРОНИРОВАНИЯ ------------------------------------- #
     # Заголовок модального окна "Booking Successful!" после успешного бронирования
