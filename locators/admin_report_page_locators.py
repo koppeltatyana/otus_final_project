@@ -23,3 +23,5 @@ class AdminReportPageLocators:
     BOOKING_ROOM_PAID_SELECT = (By.ID, 'depositpaid')
     # Кнопка "Book"
     BOOK_BTN = (By.XPATH, './/button[@class="btn btn-outline-primary float-right book-room"]')
+    # Кнопка "Cancel"
+    CANCEL_BTN = (By.XPATH, './/button[@class="btn btn-outline-danger float-right book-room"]')

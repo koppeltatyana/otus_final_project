@@ -74,6 +74,10 @@ class AdminReportPage(BasePage):
     def click_book_btn(self):
         self.find_element(Locators.BOOK_BTN).click()
 
+    @step('Кликнуть по кнопке "Cancel"')
+    def click_cancel_btn(self):
+        self.find_element(Locators.CANCEL_BTN).click()
+
     # -------------------------------------------------- Проверки ---------------------------------------------------- #
     @step('Проверить отображения "Календаря" при клике на кнопку "Booking this room"')
     def assert_calendar(self):
