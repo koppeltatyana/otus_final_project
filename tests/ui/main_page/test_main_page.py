@@ -86,4 +86,4 @@ class TestMainPage:
         main_page.enter_value_into_field(field_name='phone', value=user_data['phone'])
         main_page.click_book_btn()  # клик по кнопке "Book"
 
-        main_page.assert_error_msg()
+        main_page.assert_error_msg()  # проверить отображение сообщения с ошибкой
