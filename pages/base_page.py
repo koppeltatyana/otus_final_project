@@ -25,7 +25,7 @@ class BasePage:
 
     @allure.step('Закрыть приветственное сообщение при существовании такового')
     def close_welcome_msg(self):
-        if self.is_element_present((By.XPATH, './/button[@class="btn btn-primary"]')):
+        if self.is_element_present((By.XPATH, './/button[@class="btn btn-primary"]'), timeout=3):
             self.find_element((By.XPATH, './/button[@class="btn btn-primary"]')).click()
 
     @allure.step('Обновить страницу')

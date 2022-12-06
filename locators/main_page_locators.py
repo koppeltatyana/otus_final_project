@@ -6,7 +6,7 @@ class MainPageLocators:
     Класс для хранения методов по главной странице
     """
 
-    # ------------------------------------------- БЛОК БРОНИРОВАНИЯ НОМЕРОВ ------------------------------------------ #
+    # ---------------------------------------------- БЛОК ДЕТАЛЕЙ НОМЕРОВ -------------------------------------------- #
     # Заголовок блока "Rooms"
     TITLE = (By.XPATH, './/h2[text()="Rooms"]')
     # Элемент номера с описанием и изображением
@@ -20,7 +20,30 @@ class MainPageLocators:
     # Кнопка "Booking this room"
     BOOKING_BTN = (By.XPATH, './/button[@class="btn btn-outline-primary float-right openBooking"]')
 
-    # ---------------------------------------------- БЛОК ОБРАТНОЙ СВЯЗИ --------------------------------------------- #
+    # ------------------------------------------- БЛОК БРОНИРОВАНИЯ НОМЕРОВ ------------------------------------------ #
+    # Элемент календаря
+    CALENDAR_ITEM = (By.XPATH, './/div[@class="rbc-month-view"]')
+    # Кнопка с числом на календаре
+    CALENDAR_DAY_BTN = (By.XPATH, './/button[text()="{0}"]')
+    CALENDAR_DAY_OFF_BTN = (By.XPATH, './/button[text()="{0}"]')
+    # Поле ввода имени при бронировании
+    BOOKING_FIRSTNAME_INPUT = (By.XPATH, './/input[@class="form-control room-firstname"]')
+    # Поле ввода фамилии при бронировании
+    BOOKING_LASTNAME_INPUT = (By.XPATH, './/input[@class="form-control room-lastname"]')
+    # Поле ввода электронной почты при бронировании
+    BOOKING_EMAIL_INPUT = (By.XPATH, './/input[@class="form-control room-email"]')
+    # Поле ввода номера телефона при бронировании
+    BOOKING_PHONE_INPUT = (By.XPATH, './/input[@class="form-control room-phone"]')
+    # Кнопка "Book" при бронировании
+    BOOK_BTN = (By.XPATH, './/button[@class="btn btn-outline-primary float-right book-room"]')
+
+    # ------------------------------------ МОДАЛЬНОЕ ОКНО УСПЕШНОГО БРОНИРОВАНИЯ ------------------------------------- #
+    # Заголовок модального окна "Booking Successful!" после успешного бронирования
+    BOOKING_SUCCESSFUL_MODAL_WINDOW_TITLE = (By.XPATH, './/h3[text()="Booking Successful!"]')
+    # Кнопка "Close" модального окна "Booking Successful!" после успешного бронирования
+    CLOSE_SUCCESSFUL_MODAL_WINDOW_BTN = (By.XPATH, './/button[@class="btn btn-outline-primary" and text()="Close"]')
+
+    # -------------------------------------------- БЛОК ОБРАТНОЙ СВЯЗИ ----------------------------------------------- #
     # Поле ввода имени
     FEEDBACK_NAME_INPUT = (By.XPATH, './/input[@data-testid="ContactName"]')
     # Поле ввода электронной почты

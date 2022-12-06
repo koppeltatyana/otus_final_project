@@ -117,7 +117,7 @@ def get_random_booking_clients_residence_date_list(count: int = 5) -> list[dict]
 
 
 def random_email(char_num: int = 5) -> str:
-    return ''.join(choice(string.ascii_lowercase) for _ in range(char_num)) + choice(['gmail.com', 'mail.ru'])
+    return ''.join(choice(string.ascii_lowercase) for _ in range(char_num)) + choice(['@gmail.com', '@mail.ru'])
 
 
 def random_string(char_num: int = 5) -> str:
@@ -125,7 +125,7 @@ def random_string(char_num: int = 5) -> str:
 
 
 def random_phone() -> str:
-    return ''.join(choice(string.digits) for _ in range(10))
+    return ''.join(choice(string.digits) for _ in range(12))
 
 
 def random_user_firstname() -> str:
