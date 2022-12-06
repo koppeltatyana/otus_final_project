@@ -21,6 +21,22 @@ def pytest_addoption(parser):
         help='Enter "--headless" option if you don\'t want to see browser during a test'
     )
     parser.addoption('--remote', action='store_true', help='Enter "--remote" if you want to execute remote server')
+    parser.addoption('--executor', default='192.168.0.103:4444/wd/hub', help='Enter executor url for remote run')
+    parser.addoption(
+        '--enable_vnc',
+        action='store_true',
+        help='Enter "--enable_vnc" if you want to see browser during the test'
+    )
+    parser.addoption(
+        '--enable_video',
+        action='store_true',
+        help='Enter "--enable_video" if you want record the video during the test'
+    )
+    parser.addoption(
+        '--enable_selenoid_logs',
+        action='store_true',
+        help='Please, enter "--enable_selenoid_logs" if you want to record logs during the test'
+    )
 
 
 @fixture(scope='function')
@@ -30,7 +46,10 @@ def browser(request):
     browser_name = request.config.getoption('--browser_name')
     headless = request.config.getoption('--headless')
     is_remote = request.config.getoption('--remote')
-    executor = get_settings()['SELENIUM_HUB']
+    executor = request.config.getoption('--executor')
+    enable_vnc = request.config.getoption('--enable_vnc')
+    enable_video = request.config.getoption('--enable_video')
+    enable_selenoid_logs = request.config.getoption('--enable_selenoid_logs')
 
     if browser_name not in ['chrome', 'firefox', 'edge', 'MicrosoftEdge']:
         raise AssertionError('This browser is not supported.')
@@ -46,19 +65,20 @@ def browser(request):
         options = webdriver.EdgeOptions()
 
     if is_remote:
+        # capabilities = {}
         capabilities = {
             'browserName': browser_name,
+            'version': '107.0',
             'name': 'Tatyana',
             'acceptSslCerts': True,
             'acceptInsecureCerts': True,
             'timeZone': 'Europe/Moscow',
+            'selenoid:options': {
+                'enableVNC': enable_vnc,
+                'enableVideo': enable_video,
+                'enableLogs': enable_selenoid_logs,
+            }
         }
-        # todo: доделать видева или фото :)
-        # capabilities['selenoid:options'] = {
-        #     'enableVNC': enable_vnc,
-        #     'enableVideo': enable_video,
-        #     'enableLogs': enable_selenoid_logs,
-        # }
         driver = webdriver.Remote(
             command_executor=executor,
             desired_capabilities=capabilities,

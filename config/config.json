@@ -3,7 +3,6 @@
         "BASE_URL": "https://automationintesting.online",
         "API_URL": "https://restful-booker.herokuapp.com"
     },
-    "SELENIUM_HUB": "192.168.0.103:4444/wd/hub",
     "BROWSER_WINDOW_WIDTH": 1920,
     "BROWSER_WINDOW_HEIGHT": 1080
 }

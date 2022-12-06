@@ -79,6 +79,39 @@ class AdminRoomDetailsPage(BasePage):
         else:
             raise AssertionError(f'В админке отсутствует чекбокс "{checkbox_name}"')
 
+    def get_reservation_list(self):
+        """
+        Получение списка бронирований
+
+        :return: список бронироний
+        """
+        room_id = int(self.driver.current_url.split('/')[-1])
+        booking_list = []
+        try:
+            strategy, locator = Locators.BOOKING_ITEM
+            booking_items = self.find_elements((strategy, locator.format(room_id)))
+        except Exception:
+            return []
+
+        for booking in booking_items:
+            firstname = booking.find_element(*Locators.BOOKING_FIRSTNAME).text
+            lastname = booking.find_element(*Locators.BOOKING_LASTNAME).text
+            price = booking.find_element(*Locators.BOOKING_PRICE).text
+            is_paid = booking.find_element(*Locators.BOOKING_DEPOSIT_PAID).text
+            checkin = booking.find_element(*Locators.BOOKING_CHECKIN).text
+            checkout = booking.find_element(*Locators.BOOKING_CHECKOUT).text
+            booking_list += [
+                {
+                    'firstname': firstname,
+                    'lastname': lastname,
+                    'price': int(price),
+                    'deposit_paid': is_paid,
+                    'checkin': checkin,
+                    'checkout': checkout,
+                }
+            ]
+        return booking_list
+
     # -------------------------------------------------- Проверки ---------------------------------------------------- #
     @step('Проверить открытие страницы деталей номера "{room_number}"')
     def assert_open_room_details_page(self, room_number: str):

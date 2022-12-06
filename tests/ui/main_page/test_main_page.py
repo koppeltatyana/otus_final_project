@@ -1,6 +1,5 @@
 import datetime
-from random import choice, randint
-from time import sleep
+from random import randint
 
 from allure import suite, title
 
@@ -21,12 +20,16 @@ class TestMainPage:
         main_page.assert_map_on_the_main_page()
 
     @title('Бронирование номера с главной страницы сайта')
-    def test_user_booking(self, main_page, add_room):
+    def test_user_booking(self, main_page, add_room, delete_room_after_test):
         # тестовые данные
-        add_room(room_availability=True)  # создание нового номера без бронирований
+        room_info = add_room(room_availability=True)  # создание нового номера без бронирований
         user_data = random_user_data()  # получение данных пользователя
-        checkin = (datetime.datetime.today() + datetime.timedelta(days=randint(1, 3))).day  # дата заезда
-        checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(4, 6))).day  # дата выезда
+        checkin = (datetime.datetime.today() + datetime.timedelta(days=7)).day  # дата заезда
+        checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(8, 9))).day  # дата выезда
+
+        # --------------------------- Сохранение номера комнаты, чтобы потом его удалить ----------------------------- #
+        delete_room_after_test(room_number=room_info['room_number'])
+        # ------------------------------------------------------------------------------------------------------------ #
 
         main_page._open()
         main_page.close_welcome_msg()

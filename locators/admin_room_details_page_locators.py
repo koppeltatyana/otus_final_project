@@ -12,6 +12,28 @@ class AdminRoomDetailsPageLocators:
     # Кнопка "Edit"
     EDIT_BTN = (By.XPATH, './/button[@class="btn btn-outline-primary float-right" and text()="Edit"]')
 
+    # ---------------------------------------------- БЛОК БРОНИРОВАНИЙ ----------------------------------------------- #
+    # Элемент бронирования
+    BOOKING_ITEM = (By.XPATH, './/div[@class="detail booking-{0}"]/div[@class="row"]')
+    # Имя бронирования
+    BOOKING_FIRSTNAME = (By.XPATH, './/div[@class="col-sm-2"][1]/p')
+    # Фамилия бронирования
+    BOOKING_LASTNAME = (By.XPATH, './/div[@class="col-sm-2"][2]/p')
+    # Цена бронирования
+    BOOKING_PRICE = (By.XPATH, './/div[@class="col-sm-1"][1]/p')
+    # Оплачено ли бронирование
+    BOOKING_DEPOSIT_PAID = (By.XPATH, './/div[@class="col-sm-2"][3]/p')
+    # Дата заезда
+    BOOKING_CHECKIN = (By.XPATH, './/div[@class="col-sm-2"][4]/p')
+    # Дата выезда
+    BOOKING_CHECKOUT = (By.XPATH, './/div[@class="col-sm-2"][5]/p')
+    # Иконка редактирования бронирования по имени пользователя
+    BOOKING_EDIT_BTN_BY_FIRSTNAME = (By.XPATH, './/div[@class="col-sm-2"][1]/p/../../div[@class="col-sm-1"][2]/'
+                                               'span[@class="fa fa-pencil bookingEdit"]')
+    # Иконка удаления бронирования по имени пользователя
+    BOOKING_DELETE_BTN_BY_FIRSTNAME = (By.XPATH, './/div[@class="col-sm-2"][1]/p/../../div[@class="col-sm-1"][2]/'
+                                                 'span[@class="fa fa-trash bookingDelete"]')
+
     # -------------------------------------------- СТРАНИЦА РЕДАКТИРОВАНИЯ ------------------------------------------- #
     # Кнопка "Update"
     UPDATE_BTN = (By.XPATH, './/button[@class="btn btn-outline-primary float-right" and text()="Update"]')
