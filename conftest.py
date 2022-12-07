@@ -21,7 +21,7 @@ def pytest_addoption(parser):
         help='Enter "--headless" option if you don\'t want to see browser during a test'
     )
     parser.addoption('--remote', action='store_true', help='Enter "--remote" if you want to execute remote server')
-    parser.addoption('--executor', default='192.168.0.103:4444/wd/hub', help='Enter executor url for remote run')
+    parser.addoption('--executor', default='http://192.168.0.100', help='Enter executor url for remote run')
     parser.addoption(
         '--enable_vnc',
         action='store_true',
@@ -79,7 +79,7 @@ def browser(request):
             }
         }
         driver = webdriver.Remote(
-            command_executor=executor,
+            command_executor=f'{executor}:4444/wd/hub',
             desired_capabilities=capabilities,
             options=options,
         )
