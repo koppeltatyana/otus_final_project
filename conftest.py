@@ -15,6 +15,7 @@ pytest_plugins = [
 
 def pytest_addoption(parser):
     parser.addoption('--browser_name', default='chrome', help='Choose correct browser name.')
+    parser.addoption('--browser_version', default='108.0', help='Choose correct browser version.')
     parser.addoption(
         '--headless',
         action='store_true',
@@ -44,6 +45,7 @@ def browser(request):
     setting_config = get_settings()
 
     browser_name = request.config.getoption('--browser_name')
+    browser_version = request.config.getoption('--browser_version')
     headless = request.config.getoption('--headless')
     is_remote = request.config.getoption('--remote')
     executor = request.config.getoption('--executor')
@@ -67,6 +69,7 @@ def browser(request):
     if is_remote:
         capabilities = {
             'browserName': browser_name,
+            'browserVersion': browser_version,
             'version': '107.0',
             'name': 'Tatyana',
             'acceptSslCerts': True,
