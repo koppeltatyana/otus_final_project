@@ -1,0 +1,8 @@
+{
+    "SOURCE": {
+        "BASE_URL": "https://automationintesting.online",
+        "API_URL": "https://restful-booker.herokuapp.com"
+    },
+    "BROWSER_WINDOW_WIDTH": 1920,
+    "BROWSER_WINDOW_HEIGHT": 1080
+}

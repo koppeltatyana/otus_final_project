@@ -1,0 +1,58 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Welcome8",
+    "definitions": {
+        "Welcome8": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "firstname": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "totalprice": {
+                    "type": ["integer", "number"]
+                },
+                "depositpaid": {
+                    "type": "boolean"
+                },
+                "bookingdates": {
+                    "$ref": "#/definitions/Bookingdates"
+                },
+                "additionalneeds": {
+                    "type": ["null", "string", "array"]
+                }
+            },
+            "required": [
+                "additionalneeds",
+                "bookingdates",
+                "depositpaid",
+                "firstname",
+                "lastname",
+                "totalprice"
+            ],
+            "title": "Welcome8"
+        },
+        "Bookingdates": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "checkin": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "checkout": {
+                    "type": "string",
+                    "format": "date"
+                }
+            },
+            "required": [
+                "checkin",
+                "checkout"
+            ],
+            "title": "Bookingdates"
+        }
+    }
+}
