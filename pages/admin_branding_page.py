@@ -1,7 +1,7 @@
 from time import sleep
 
 from allure_commons._allure import step
-from selenium.webdriver import ActionChains
+from selenium.webdriver import Keys
 
 from locators import AdminBrandingPageLocators as Locators
 from pages.base_page import BasePage
@@ -23,22 +23,51 @@ class AdminBrandingPage(BasePage):
         :param field_name: наименование поля ввода
         :param value: вводимое значение
         """
-        action = ActionChains(self.driver)
         if field_name == 'description':
-            action.click(on_element=self.find_element(Locators.DESC_INPUT)).pause(1).\
-                double_click().double_click().pause(0.5).send_keys(value).pause(1).perform()
+            _input = self.find_element(Locators.DESC_INPUT)
+            _input.click()
+            sleep(0.5)
+            _input.send_keys(Keys.CONTROL, 'a')
+            sleep(0.5)
+            _input.send_keys(Keys.DELETE)
+            sleep(0.5)
+            _input.send_keys(value)
         elif field_name == 'contact_name':
-            action.click(on_element=self.find_element(Locators.CONTACT_NAME_INPUT)).pause(0.5). \
-                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
+            _input = self.find_element(Locators.CONTACT_NAME_INPUT)
+            _input.click()
+            sleep(0.5)
+            _input.send_keys(Keys.CONTROL, 'a')
+            sleep(0.5)
+            _input.send_keys(Keys.DELETE)
+            sleep(0.5)
+            _input.send_keys(value)
         elif field_name == 'contact_address':
-            action.click(on_element=self.find_element(Locators.CONTACT_ADDRESS_INPUT)).pause(0.5). \
-                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
+            _input = self.find_element(Locators.CONTACT_ADDRESS_INPUT)
+            _input.click()
+            sleep(0.5)
+            _input.send_keys(Keys.CONTROL, 'a')
+            sleep(0.5)
+            _input.send_keys(Keys.DELETE)
+            sleep(0.5)
+            _input.send_keys(value)
         elif field_name == 'contact_phone':
-            action.click(on_element=self.find_element(Locators.CONTACT_PHONE_INPUT)).pause(0.5). \
-                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
+            _input = self.find_element(Locators.CONTACT_PHONE_INPUT)
+            _input.click()
+            sleep(0.5)
+            _input.send_keys(Keys.CONTROL, 'a')
+            sleep(0.5)
+            _input.send_keys(Keys.DELETE)
+            sleep(0.5)
+            _input.send_keys(value)
         elif field_name == 'contact_email':
-            action.click(on_element=self.find_element(Locators.CONTACT_EMAIL_INPUT)).pause(0.5). \
-                double_click().double_click().pause(0.5).send_keys(value).pause(0.5).perform()
+            _input = self.find_element(Locators.CONTACT_EMAIL_INPUT)
+            _input.click()
+            sleep(0.5)
+            _input.send_keys(Keys.CONTROL, 'a')
+            sleep(0.5)
+            _input.send_keys(Keys.DELETE)
+            sleep(0.5)
+            _input.send_keys(value)
         else:
             raise AssertionError(f'На странице нет поля ввода "{field_name}"')
 
