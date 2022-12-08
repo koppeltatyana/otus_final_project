@@ -20,6 +20,7 @@ class TestBookingSearch:
         )
 
     @title('Получение списка идентификаторов бронирований по имени и фамилии с данными {api_booking_clients_name}')
+    @pytest.mark.no_parallel
     def test_getting_booking_ids_by_client_name(self, api_booking, api_booking_clients_name):
         response, status_code = api_booking.get_booking_ids(
             first_name=api_booking_clients_name['firstname'],
@@ -59,6 +60,7 @@ class TestBookingSearch:
 
     @title('Получение информации по бронированию по несуществующему идентификатору "{booking_id}"')
     @pytest.mark.parametrize('booking_id', [100000000000000, 0])
+    @pytest.mark.no_parallel
     def test_get_booking_info_by_non_existent_id(self, api_booking, booking_id):
         response, status_code = api_booking.get_booking_info_by_id(
             booking_id=booking_id,
