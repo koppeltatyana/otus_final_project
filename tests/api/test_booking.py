@@ -16,6 +16,7 @@ class TestBooking:
     @title('Создание бронирования')
     @pytest.mark.parametrize('additional_needs', [None, 'Breakfast', ['Breakfast', 'Morning Alarm']])
     @pytest.mark.parametrize('deposit_paid', [True, False])
+    @pytest.mark.no_parallel
     def test_create_booking(self, api_booking, additional_needs, deposit_paid):
         checkin = (datetime.datetime.today() + datetime.timedelta(days=randint(1, 5))).strftime('%Y-%m-%d')
         checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(5, 30))).strftime('%Y-%m-%d')
@@ -37,6 +38,7 @@ class TestBooking:
     @title('Редактирование бронирования')
     @pytest.mark.parametrize('additional_needs', [None, 'Breakfast', ['Breakfast', 'Morning Alarm']])
     @pytest.mark.parametrize('deposit_paid', [True, False])
+    @pytest.mark.no_parallel
     def test_full_booking_editing(self, api_booking, access_token, additional_needs, deposit_paid):
         checkin = (datetime.datetime.today() + datetime.timedelta(days=randint(1, 5))).strftime('%Y-%m-%d')
         checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(5, 30))).strftime('%Y-%m-%d')
@@ -63,6 +65,7 @@ class TestBooking:
         )
 
     @title('Частичное редактирование бронирования с id "{api_booking_id}"')
+    @pytest.mark.no_parallel
     def test_partial_booking_editing(self, api_booking, access_token, api_booking_id):
         checkin = (datetime.datetime.today() + datetime.timedelta(days=randint(1, 5))).strftime('%Y-%m-%d')
         checkout = (datetime.datetime.today() + datetime.timedelta(days=randint(5, 30))).strftime('%Y-%m-%d')
@@ -84,6 +87,7 @@ class TestBooking:
         )
 
     @title('Удаление бронирования "api_create_booking"')
+    @pytest.mark.no_parallel
     def test_booking_deleting(self, api_booking, access_token, api_create_booking):
         response, status_code = api_booking.delete_booking(
             access_token=access_token,
