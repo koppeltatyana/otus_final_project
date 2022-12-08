@@ -67,8 +67,8 @@ class MainPage(BasePage):
         checkout_btn = self.find_element((strategy, locator.format(checkout)))
 
         action = ActionChains(self.driver)
-        action.move_to_element_with_offset(to_element=checkin_btn, xoffset=-10, yoffset=10).click_and_hold().perform()
-        action.move_to_element_with_offset(to_element=checkin_btn, xoffset=10, yoffset=10).pause(1).perform()
+        action.move_to_element_with_offset(to_element=checkin_btn, xoffset=-10, yoffset=10).click_and_hold()
+        action.move_to_element_with_offset(to_element=checkin_btn, xoffset=10, yoffset=10).pause(1)
         action.move_to_element_with_offset(to_element=checkout_btn, xoffset=-10, yoffset=10).pause(1).release()
         action.perform()
 
