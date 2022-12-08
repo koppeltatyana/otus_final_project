@@ -1,6 +1,7 @@
 import datetime
 from random import randint
 
+import pytest
 from allure import suite, title
 
 from utils.helpers import random_user_data
@@ -20,6 +21,7 @@ class TestMainPage:
         main_page.assert_map_on_the_main_page()
 
     @title('Бронирование номера с главной страницы сайта')
+    @pytest.mark.no_parallel
     def test_user_booking(self, main_page, add_room, delete_room_after_test):
         # тестовые данные
         room_info = add_room(room_availability=True)  # создание нового номера без бронирований
@@ -54,6 +56,7 @@ class TestMainPage:
         main_page.click_close_successful_modal_window()  # закрыть модальное окно после успешного бронирования
 
     @title('Невозможность бронирования на недоступные даты')
+    @pytest.mark.no_parallel
     def test_impossible_booking(self, main_page, add_main_page_booking, delete_room_after_test):
         # тестовые данные
         room_info, user_booking_info = add_main_page_booking

@@ -15,6 +15,7 @@ class TestAdminPanelAuth:
     """
 
     @title('Проверка добавления номера для бронирования в админке')
+    @pytest.mark.no_parallel
     @pytest.mark.parametrize('room_availability', [True, False])
     def test_admin_panel_room_adding(
         self, admin_login_page, admin_main_page, main_page, delete_room_after_test, room_availability,
@@ -84,6 +85,7 @@ class TestAdminPanelAuth:
         assert len(ui_room_list) == len(new_admin_room_list)
 
     @title('Проверка добавления номера для бронирования в админке')
+    @pytest.mark.no_parallel
     @pytest.mark.parametrize('room_availability', [True, False])
     def test_admin_panel_room_deleting(self, admin_login_page, admin_main_page, add_room, main_page, room_availability):
         added_room = add_room(room_availability=room_availability)
@@ -110,6 +112,7 @@ class TestAdminPanelAuth:
         assert len(ui_room_list) < len(old_available_admin_room_list)
 
     @title('Редактирование информации по номеру')
+    @pytest.mark.no_parallel
     @pytest.mark.parametrize('room_availability', [True, False])
     def test_admin_panel_room_editing(
         self, admin_login_page, admin_main_page, admin_room_details_page, add_room, main_page,

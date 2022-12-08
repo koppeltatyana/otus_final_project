@@ -17,6 +17,7 @@ class TestAdminPanelBooking:
 
     @title('Бронирование через админ-панель')
     @pytest.mark.xfail(reason='Неверно проставляется дата выезда')
+    @pytest.mark.no_parallel
     def test_admin_panel_booking(
         self, add_room, admin_main_page, admin_login_page, admin_report_page, admin_room_details_page,
     ):
@@ -75,6 +76,7 @@ class TestAdminPanelBooking:
         assert user_data['checkout'] == int(current_booking['checkout'][-2:])
 
     @title('Отмена бронирования через админ-панель')
+    @pytest.mark.no_parallel
     def test_admin_panel_booking_cancellation(
         self, add_room, admin_main_page, admin_login_page, admin_report_page, admin_room_details_page,
     ):
@@ -110,6 +112,7 @@ class TestAdminPanelBooking:
         admin_report_page.assert_calendar()
 
     @title('Проверка информации по бронированию в админ-панели')
+    @pytest.mark.no_parallel
     @pytest.mark.xfail(reason='Неверно проставляется дата выезда')
     def test_assert_user_booking_in_admin_panel(
         self, main_page, admin_login_page, add_main_page_booking, admin_main_page, admin_room_details_page,
@@ -145,6 +148,7 @@ class TestAdminPanelBooking:
         assert user_booking_info['checkout'] == int(current_booking['checkout'][-2:])
 
     @title('Удаление бронирования')
+    @pytest.mark.no_parallel
     def test_delete_booking(
         self, main_page, admin_login_page, add_main_page_booking, admin_main_page, admin_room_details_page,
     ):
@@ -153,7 +157,6 @@ class TestAdminPanelBooking:
 
         admin_login_page._open(path=admin_login_page.path)
         admin_login_page.close_welcome_msg()
-        admin_login_page.assert_open_admin_panel_login_page()  # проверить открытие страницы авторизации в админку
 
         admin_login_page.admin_panel_login(
             username=UI_ADMIN_USER['username'],
