@@ -19,7 +19,7 @@ def api_booking():
     return ApiBooking(api_base_url=get_settings()['SOURCE']['API_URL'])
 
 
-@fixture(scope='function', params=get_random_booking_ids_list())
+@fixture(scope='function', params=get_random_booking_ids_list(count=5))
 def api_booking_id(request):
     return request.param
 

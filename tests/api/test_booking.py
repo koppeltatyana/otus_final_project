@@ -86,7 +86,7 @@ class TestBooking:
             name='booking/get_booking_info',
         )
 
-    @title('Удаление бронирования "api_create_booking"')
+    @title('Удаление бронирования')
     @pytest.mark.no_parallel
     def test_booking_deleting(self, api_booking, access_token, api_create_booking):
         response, status_code = api_booking.delete_booking(
